@@ -4,7 +4,7 @@
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="12.0.1+12"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/openjdk-12.0.1.jdk/Contents/Home/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/Users/vvaddadhi/Desktop/my-app"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/vvaddadhi/Desktop/Apache-Parquet-OCI/my-app"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -13,7 +13,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/vvaddadhi/Desktop/my-app"/>
+    <property name="user.dir" value="/Users/vvaddadhi/Desktop/Apache-Parquet-OCI/my-app"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="12.0.1+12"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
@@ -31,7 +31,7 @@
     <property name="java.class.version" value="56.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.14.5"/>
+    <property name="os.version" value="10.14.6"/>
     <property name="library.jansi.path" value="/usr/local/Cellar/maven/3.6.3/libexec/lib/jansi-native"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/vvaddadhi"/>
