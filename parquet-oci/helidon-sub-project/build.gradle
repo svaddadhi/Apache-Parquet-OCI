@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.0', ext: 'pom'
+
+
+    // https://mvnrepository.com/artifact/io.helidon.microprofile.config/helidon-microprofile-config
+    compile group: 'io.helidon.microprofile.config', name: 'helidon-microprofile-config', version: '2.0.0-M1'
+
+}
+
+mainClassName = 'helidon.Helidon'
