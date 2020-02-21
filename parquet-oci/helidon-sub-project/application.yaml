@@ -1,0 +1,33 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: helidon-sub-project
+  labels:
+    app: helidon-sub-project
+spec:
+  type: NodePort
+  selector:
+    app: helidon-sub-project
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: helidon-sub-project
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: helidon-sub-project
+        version: v1
+    spec:
+      containers:
+        - name: helidon-sub-project
+          image: helidon-sub-project
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
