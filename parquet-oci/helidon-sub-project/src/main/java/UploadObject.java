@@ -23,19 +23,37 @@ import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadResponse;
  * similar to what they normally would.
  */
 public class UploadObject {
+    String namespaceName;
+    String bucketName;
+    String objectName;
+    File body;
 
-    public static void main(String[] args) throws Exception {
+    public UploadObject(String namespaceName, String bucketName, String objectName,String body){
+        this.namespaceName=namespaceName;
+        this.bucketName=bucketName;
+        this.objectName=objectName;
+        this.body=new File(body);
+
+
+
+    }
+
+    public void upload() throws Exception {
         String configurationFilePath = "~/.oci/config";
         String profile = "DEFAULT";
 
-        String namespaceName = "axvsvpirtkel";
-        String bucketName ="bucket-20200129-1839";
-        String objectName = "example.csv";
         Map<String, String> metadata = null;
         String contentType = "text/csv";
         String contentEncoding = "UTF-8";
         String contentLanguage = "en-US";
+
+    /*
+        String namespaceName = "axvsvpirtkel";
+        String bucketName ="bucket-20200129-1839";
+        String objectName = "example.csv";
         File body = new File("/home/david/Descargas/example.csv");
+
+     */
 
         AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);

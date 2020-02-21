@@ -11,13 +11,28 @@ import java.io.InputStream;
 import java.io.FileOutputStream;
 
 public class DownloadObject {
-    public static void main(String[] args) throws Exception {
+
+    String namespaceName;
+    String bucketName ;
+    String objectName;
+    String saveFilePath;
+    public DownloadObject(String namespaceName,String bucketName,String objectName,String saveFilePath){
+
+        this.bucketName=bucketName;
+        this.namespaceName=namespaceName;
+        this.objectName=objectName;
+        this.saveFilePath=saveFilePath;
+
+
+    }
+    public void download() throws Exception {
         String configurationFilePath = "~/.oci/config";
         String profile = "DEFAULT";
 
-        String namespaceName = "axvsvpirtkel";
-        String bucketName ="bucket-20200129-1839";
-        String objectName = "example.csv";
+        //String namespaceName = "axvsvpirtkel";
+        //String bucketName ="bucket-20200129-1839";
+        //String objectName = "example.csv";
+        //String saveFilePath = "/home/david/Descargas/prueba.csv";
 
         AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
@@ -42,7 +57,7 @@ public class DownloadObject {
 
         // opens input stream from the HTTP connection
         InputStream inputStream = getResponse.getInputStream();
-        String saveFilePath = "/home/david/Descargas/prueba.csv";
+
 
         // opens an output stream to save into file
         FileOutputStream outputStream = new FileOutputStream(saveFilePath);
