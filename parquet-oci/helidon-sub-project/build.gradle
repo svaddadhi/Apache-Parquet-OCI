@@ -29,7 +29,9 @@ dependencies {
     compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-objectstorage', version: '1.13.0'
 
 
-
+    compile 'io.helidon.microprofile.server:helidon-microprofile-server:2.0.0-M1'
+    compile 'io.helidon.common:helidon-common:2.0.0-M1'
+    compile 'javax.json:javax.json-api:1.1.4'
 }
 
 mainClassName = 'helidon.Helidon'
