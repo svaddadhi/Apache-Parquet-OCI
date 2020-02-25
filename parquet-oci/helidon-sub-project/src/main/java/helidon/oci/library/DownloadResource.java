@@ -22,7 +22,15 @@ public class DownloadResource {
     @SuppressWarnings("checkstyle:designforextension")
     @GET
     //@Produces(MediaType.TEXT_PLAIN)
-    public String downloadFile() {
+    public String downloadFile() throws Exception {
+        String namespaceName = "axvsvpirtkel";
+        String bucketName ="bucket-20200129-1839";
+        String objectName = "example2.csv";
+        String saveFilePath = "/home/david/Descargas/prueba2.csv";
+
+        DownloadObject download=new DownloadObject(namespaceName,bucketName,objectName,saveFilePath);
+        download.download();
+
         return "Hello World";
     }
 }
