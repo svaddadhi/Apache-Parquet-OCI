@@ -32,13 +32,19 @@ import javax.ws.rs.core.Application;
  */
 @ApplicationScoped
 @ApplicationPath("/")
-public class HelidonApplication extends Application {
+public class GreetApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> set = new HashSet<>();
         set.add(UploadResource.class);
+        set.add(DownloadResource.class);
         set.add(GreetResource.class);
         return Collections.unmodifiableSet(set);
     }
+
+//    @Override
+//    public Set<Class<?>> getClasses() {
+//        return Set.of(GreetResource.class);
+//    }
 }
