@@ -51,6 +51,7 @@ dependencies {
     compile 'io.helidon.common:helidon-common:2.0.0-M1'
     compile 'javax.json:javax.json-api:1.1.4'
 
+
     // import Helidon BOM
     //implementation platform("io.helidon:helidon-dependencies:${project.helidonversion}")
 
@@ -61,6 +62,8 @@ dependencies {
 //    runtimeOnly 'javax.activation:javax.activation-api'
 
 //    testCompileOnly 'org.junit.jupiter:junit-jupiter-api'
+    compile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+    compile 'com.google.code.gson:gson:2.8.6'
 }
 
 // define a custom task to copy all dependencies in the runtime classpath
