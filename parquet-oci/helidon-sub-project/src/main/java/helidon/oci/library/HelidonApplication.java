@@ -32,7 +32,7 @@ import javax.ws.rs.core.Application;
  */
 @ApplicationScoped
 @ApplicationPath("/")
-public class GreetApplication extends Application {
+public class HelidonApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {

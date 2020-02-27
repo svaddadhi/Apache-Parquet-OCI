@@ -1,7 +1,5 @@
 package helidon.oci.library;
 
-//import io.helidon.common.http.MediaType;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.JsonObject;
@@ -10,11 +8,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.gson.Gson;
-
 import java.io.File;
 
-//import javax.ws.rs.Produces;
 
 @Path("/download")
 @RequestScoped
