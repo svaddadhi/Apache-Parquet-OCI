@@ -1,4 +1,6 @@
-import java.io.File;
+import helidon.oci.library.DownloadObject;
+import helidon.oci.library.UploadObject;
+
 public class main {
     public static void main(String[] args) throws Exception {
         String namespaceName = "axvsvpirtkel";
