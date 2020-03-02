@@ -1,4 +1,5 @@
-package helidon.oci.library;
+package library;
+
 
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;

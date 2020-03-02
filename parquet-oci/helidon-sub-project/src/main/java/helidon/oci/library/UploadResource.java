@@ -1,5 +1,7 @@
 package helidon.oci.library;
 
+import library.UploadObject;
+
 import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.json.JsonBuilderFactory;

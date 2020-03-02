@@ -2,11 +2,42 @@ plugins {
     id 'java'
     id 'application'
 }
+sourceCompatibility = 11
+targetCompatibility = 11
 
 dependencies {
 
     // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
     compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.0', ext: 'pom'
+
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.0', ext: 'pom'
+
+
+    // https://mvnrepository.com/artifact/io.helidon.microprofile.config/helidon-microprofile-config
+    compile group: 'io.helidon.microprofile.config', name: 'helidon-microprofile-config', version: '2.0.0-M1'
+
+    // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-bom
+    compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-bom', version: '1.13.0', ext: 'pom'
+
+    // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-audit
+    compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-audit', version: '1.13.0'
+
+    // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-core
+    compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-core', version: '1.13.0'
+
+    // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-database
+    compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-database', version: '1.13.0'
+
+    // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-objectstorage
+    compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-objectstorage', version: '1.13.0'
+
+
+    compile 'io.helidon.microprofile.server:helidon-microprofile-server:2.0.0-M1'
+    compile 'io.helidon.common:helidon-common:2.0.0-M1'
+    compile 'javax.json:javax.json-api:1.1.4'
+    compile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+    compile 'com.google.code.gson:gson:2.8.6'
 
 }
 

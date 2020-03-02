@@ -1,5 +1,5 @@
-import helidon.oci.library.DownloadObject;
-import helidon.oci.library.UploadObject;
+import library.DownloadObject;
+import library.UploadObject;
 
 public class main {
     public static void main(String[] args) throws Exception {

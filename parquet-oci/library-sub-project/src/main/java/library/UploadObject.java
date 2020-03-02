@@ -1,4 +1,5 @@
-package helidon.oci.library;
+package library;
+
 
 import java.io.File;
 import java.io.InputStream;
@@ -17,13 +18,7 @@ import com.oracle.bmc.objectstorage.transfer.UploadManager;
 import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadRequest;
 import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadResponse;
 
-/**
- * Example of using the simplified UploadManager to upload objects.
- * <p>
- * UploadManager can be configured to control how/when it does multi-part uploads,
- * and manages the underlying upload method.  Clients construct a PutObjectRequest
- * similar to what they normally would.
- */
+
 public class UploadObject {
     String namespaceName;
     String bucketName;
