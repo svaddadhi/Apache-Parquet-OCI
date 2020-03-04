@@ -39,6 +39,8 @@ dependencies {
     compile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
     compile 'com.google.code.gson:gson:2.8.6'
 
+
+    compile 'org.apache.parquet:parquet-avro:1.11.0'
 }
 
 mainClassName = 'library.Library'
