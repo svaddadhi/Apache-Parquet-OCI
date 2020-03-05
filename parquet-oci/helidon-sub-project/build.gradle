@@ -58,6 +58,7 @@ assemble.dependsOn copyLibs
  // default jar configuration
  // set the main classpath
  // add each jar under build/libs/libs into the classpath
+// Using and creating an Executable Jar
 jar {
 //    archiveFileName = "${project.name}.jar"
 //    archiveFileName = "helidon-sub-project.jar"
@@ -69,3 +70,15 @@ jar {
 }
 
 mainClassName = 'helidon.oci.library.Main'
+
+task runApp(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    main = 'helidon.oci.library.Main'
+}
+
+task runJar(type: JavaExec) {
+    classpath = files(tasks.jar)
+    main = 'helidon.oci.library.Main'
+}
+
