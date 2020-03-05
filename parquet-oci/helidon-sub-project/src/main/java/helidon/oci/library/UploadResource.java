@@ -26,8 +26,13 @@ public class UploadResource {
 
         String filePath = jsonObject.getString("filePath");
 
-        UploadObject upload = new UploadObject(namespace, bucket, object, filePath);
-        upload.upload();
+        try {
+            UploadObject upload = new UploadObject(namespace, bucket, object, filePath);
+            upload.upload();
+        }
+        catch(Exception e) {
+            return Response.status(Integer.parseInt(e.getMessage().substring(1, 4))).build();
+        }
 
         // TODO: Error handling (404, 400, etc.)
 

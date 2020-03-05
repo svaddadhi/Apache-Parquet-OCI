@@ -26,9 +26,13 @@ public class DownloadResource {
 
         String filePath = System.getProperty("user.home") + File.separator + object;
 
-        DownloadObject download = new DownloadObject(namespace, bucket, object, filePath);
-        download.download();
-
+        try {
+            DownloadObject download = new DownloadObject(namespace, bucket, object, filePath);
+            download.download();
+        }
+        catch(Exception e) {
+            return Response.status(Integer.parseInt(e.getMessage().substring(1, 4))).build();
+        }
         // TODO: Error handling (404, 400, etc.)
 
         return Response.ok().build();

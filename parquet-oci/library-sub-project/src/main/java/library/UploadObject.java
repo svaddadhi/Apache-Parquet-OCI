@@ -78,9 +78,14 @@ public class UploadObject {
                         .opcMeta(metadata)
                         .build();
 
-        UploadRequest uploadDetails =
-                UploadRequest.builder(body).allowOverwrite(true).build(request);
+        UploadRequest uploadDetails = null;
 
+        try {
+            uploadDetails = UploadRequest.builder(body).allowOverwrite(true).build(request);
+        }
+        catch(Exception e) {
+            throw new Exception("{404}");
+        }
         // upload request and print result
         // if multi-part is used, and any part fails, the entire upload fails and will throw BmcException
         UploadResponse response = uploadManager.upload(uploadDetails);
