@@ -1,0 +1,5 @@
+rootProject.name = 'helidon-sub-project'
+//include 'library-sub-project', 'parquet oci'
+//project(':library-sub-project').projectDir=file("../library-sub-project")
+include ':library-sub-project'
+project(':library-sub-project').projectDir = new File('../library-sub-project')
