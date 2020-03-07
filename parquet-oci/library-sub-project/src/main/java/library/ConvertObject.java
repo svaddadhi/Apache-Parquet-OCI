@@ -1,9 +1,15 @@
 package library;
 
-import org.apache.parquet.avro.AvroParquetWriter;
+import library.p2c.Conv2Csv;
+import library.c2p.Conv2Par;
 
 public class ConvertObject {
-    public void convertCsvToParquet() {
-        System.out.println("this is where the converter goes");
+
+    public ConverterObject(String src, String tar) {
+        new Conv2Par(src, tar).init().conv().close();
+    }
+
+    public ConverterObject(String src, String tar, int len) {
+        new Conv2Csv(src, tar, len).init().conv().close();
     }
 }
