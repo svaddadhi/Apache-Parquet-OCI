@@ -14,6 +14,6 @@ public class ConvertObject {
     }
 
     public static void main (String argv[]) {
-        new ConvertObject("/home/tongxuan/Downloads/airtravel.csv","test.parquet");
+        new ConvertObject(System.getProperty("user.home")+ "/Downloads/airtravel.csv","test.parquet");
     }
 }
