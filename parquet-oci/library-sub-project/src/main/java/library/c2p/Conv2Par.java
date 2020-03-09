@@ -44,8 +44,12 @@ public class Conv2Par {
     public Conv2Par conv() {
         if (this.writer == null) util.segFault("CS2PV");
         String csvLine[];
-        while((csvLine = this.csvReader.readNext()) != null)
-            this.writer.exe(csvLine);
+        boolean warningFlag = false;
+        while((csvLine = this.csvReader.readNext()) != null) {
+            if (warningFlag) util.abort("Invalid input content");
+            if (csvLine.length == this.title.length) this.writer.exe(csvLine);
+            else warningFlag = true;
+        }
         return this;
     }
 
@@ -56,7 +60,7 @@ public class Conv2Par {
 
     public static void main (String[] args) {
         try {
-            new Conv2Par("/home/tongxuan/Downloads/airtravel.csv", new File("test4.parquet").getCanonicalPath()).init().conv().close();
+            new Conv2Par("/home/tongxuan/Downloads/airtravel.csv", new File("test.parquet").getCanonicalPath()).init().conv().close();
         } catch (IOException e) {
             util.abort("Failed to obtain target address");
         }
