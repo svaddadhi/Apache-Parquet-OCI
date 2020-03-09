@@ -2,6 +2,8 @@ package library.c2p;
 
 import library.service.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 
 public class Conv2Par {
@@ -34,8 +36,8 @@ public class Conv2Par {
         for (int i = 0; i < this.title.length; i++) this.title[i] = "item" + i;
         this.csvReader.close();
         this.csvReader = new CSVRP(this.srcCsv).open();
-        this.avsc = new AVSC(this.title, "avsc" + new Timestamp(System.currentTimeMillis()).toString());
-        this.writer = new WriteParquet().setSrcScheme(this.avsc).setTargetParquet(this.tarParquet);
+        this.avsc = new AVSC(this.title, "avsc" + new Timestamp(System.currentTimeMillis()).getTime()).build();
+        this.writer = new WriteParquet().setSrcScheme(this.avsc).setTargetParquet(this.tarParquet).parseSchema().init();
         return this;
     }
 
@@ -49,9 +51,14 @@ public class Conv2Par {
 
     public void close() {
         this.csvReader.close();
+        this.writer.close();
     }
 
     public static void main (String[] args) {
-        new Conv2Par("~/Download/FL_insurance_sample.csv", "test.parquet").init().conv().close();
+        try {
+            new Conv2Par("/home/tongxuan/Downloads/airtravel.csv", new File("test4.parquet").getCanonicalPath()).init().conv().close();
+        } catch (IOException e) {
+            util.abort("Failed to obtain target address");
+        }
     }
 }

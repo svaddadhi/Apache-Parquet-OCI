@@ -2,6 +2,8 @@ package library.c2p;
 
 import library.service.util;
 
+import java.io.IOException;
+
 public class AVSC {
     String title[];
     String name;
@@ -20,7 +22,7 @@ public class AVSC {
             if (i != 0) ret.append(",\n\t");
             ret.append("{\n\t\t\"name\": \"" + this.title[i] + "\",\n\t\t\"type\": \"string\"\n\t}");
         } ret.append("]\n}\n");
-        util.wrtieFile(name + ".avsc", ret.toString());
+        util.wrtieFile(this.name + ".avsc", ret.toString());
         return this;
     }
 

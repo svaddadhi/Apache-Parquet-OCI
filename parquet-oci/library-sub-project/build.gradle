@@ -30,7 +30,16 @@ dependencies {
     compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-database', version: '1.13.0'
 
     // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-objectstorage
-    compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-objectstorage', version: '1.13.0'
+    compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-objectstorage', version: '1.11.0'
+
+    // https://mvnrepository.com/artifact/org.apache.avro/avro
+    compile group: 'org.apache.avro', name: 'avro', version: '1.8.2'
+
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    compile group: 'com.opencsv', name: 'opencsv', version: '3.8'
+
+    // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-core
+    compile group: 'org.apache.hadoop', name: 'hadoop-core', version: '1.2.1'
 
 
     compile 'io.helidon.microprofile.server:helidon-microprofile-server:2.0.0-M1'
