@@ -12,4 +12,8 @@ public class ConvertObject {
     public ConvertObject(String src, String tar, int len) {
         new Conv2Csv(src, tar, len).init().conv().close();
     }
+
+    public static void main (String argv[]) {
+        new ConvertObject("/home/tongxuan/Downloads/airtravel.csv","test.parquet");
+    }
 }

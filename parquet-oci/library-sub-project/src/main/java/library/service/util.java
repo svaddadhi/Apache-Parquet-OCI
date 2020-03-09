@@ -15,14 +15,22 @@ public class util {
         System.exit(254);
     }
 
-    public static void wrtieFile (String uri, String cont) {
+    public static void wrtieFile (String dir, String fname, String cont) {
         try {
+            mkdir(dir);
+            if (dir.charAt(dir.length() - 1) != '/') dir = dir + "/";
+            String uri = dir + fname;
             new File(uri).createNewFile();
             FileWriter fw = new FileWriter(uri);
             fw.write(cont);
             fw.close();
         } catch (IOException e) {
-            segFault("UTLWF");
+            util.abort("Failed to create file " + dir + fname);
         }
+    }
+
+    public static void mkdir (String uri) {
+        File f = new File (uri);
+        if (! f.exists()) f.mkdir();
     }
 }

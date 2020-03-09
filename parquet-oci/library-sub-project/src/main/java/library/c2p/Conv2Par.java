@@ -57,12 +57,4 @@ public class Conv2Par {
         this.csvReader.close();
         this.writer.close();
     }
-
-    public static void main (String[] args) {
-        try {
-            new Conv2Par("/home/tongxuan/Downloads/airtravel.csv", new File("test.parquet").getCanonicalPath()).init().conv().close();
-        } catch (IOException e) {
-            util.abort("Failed to obtain target address");
-        }
-    }
 }

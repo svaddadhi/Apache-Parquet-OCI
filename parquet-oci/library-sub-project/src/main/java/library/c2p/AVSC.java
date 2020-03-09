@@ -22,7 +22,7 @@ public class AVSC {
             if (i != 0) ret.append(",\n\t");
             ret.append("{\n\t\t\"name\": \"" + this.title[i] + "\",\n\t\t\"type\": \"string\"\n\t}");
         } ret.append("]\n}\n");
-        util.wrtieFile(this.name + ".avsc", ret.toString());
+        util.wrtieFile("/tmp/avsc/", this.name + ".avsc", ret.toString());
         return this;
     }
 

@@ -62,7 +62,7 @@ public class WriteParquet {
         this.schema = null;
         try {
             // pass path to schema
-            InputStream is = new FileInputStream(this.avscScheDes.name + ".avsc");
+            InputStream is = new FileInputStream("/tmp/avsc/" + this.avscScheDes.name + ".avsc");
             if (is == null) util.segFault("WPPSN");
             this.schema = parser.parse(is);
 
