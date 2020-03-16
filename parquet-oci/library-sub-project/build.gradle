@@ -14,15 +14,39 @@ plugins {
     id 'application'
 }
 
+apply plugin: "me.champeau.gradle.jmh"
+
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
 
+
+//buildscript {
+//    repositories {
+//        jcenter()
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+//    }
+
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.1-jre'
+
+    // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
+    implementation group: 'org.openjdk.jmh',
+            name: 'jmh-core',
+            version: '1.23'
+
+    classpath "me.champeau.gradle:jmh-gradle-plugin:0.5.0"
+
+    // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess
+    testImplementation group: 'org.openjdk.jmh',
+            name: 'jmh-generator-annprocess',
+            version: '1.23'
+
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

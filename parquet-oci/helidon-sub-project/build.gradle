@@ -26,13 +26,11 @@ repositories {
     jcenter()
 }
 
-//ext {
-//    javaCreateClient = "helidon.sub.project.CreateClient;"
-//}
-//
-//application {
-//    mainClassName = javaCreateClient
-//}
+task(runUpload, dependsOn: 'classes', type: JavaExec) {
+    main = 'helidon.sub.project.UploadObjectExample'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'axkp37dd7jf5 bucket-20200204-1442 SalesSalesJan2009.csv'
+}
 
 dependencies {
     // This dependency is used by the application.
@@ -131,5 +129,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'helidon.sub.project.CreateClient'
+    mainClassName = 'helidon.sub.project.UploadObjectExample'
 }

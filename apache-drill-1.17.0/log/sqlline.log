@@ -2389,3 +2389,6 @@ java.io.IOException: Operation timed out
 	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
 	at java.base/java.lang.Thread.run(Thread.java:835)
 2020-02-20 16:11:05,745 [UserServer-1] INFO  o.a.drill.exec.rpc.user.UserServer - RPC connection /169.233.198.30:31010 <--> /169.233.198.30:52045 (user server) timed out.  Timeout was set to 30 seconds. Closing connection.
+2020-02-26 16:35:56,513 [Drillbit-ShutdownHook#0] INFO  o.apache.drill.exec.server.Drillbit - Received shutdown request.
+2020-02-26 16:35:57,682 [Drillbit-ShutdownHook#0] INFO  o.a.drill.exec.compile.CodeCompiler - Stats: code gen count: 7, cache miss count: 2, hit rate: 71%
+2020-02-26 16:35:57,719 [Drillbit-ShutdownHook#0] INFO  o.apache.drill.exec.server.Drillbit - Shutdown completed (1189 ms).
