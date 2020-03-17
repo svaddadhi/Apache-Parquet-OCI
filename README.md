@@ -3,7 +3,6 @@
 This is the github repository for the Apache Parquet + OCI project. In this repo will be our work where we are getting to know Apache parquet. This will be done by trying to convert a CSV file into Parquet format, and we want to avoid using any libraries but the standard ones (guava, comnmons-lang, ...). Our primary focus is performance. Our next step for this project will be to get familliar with Helidon and write a REST-API that can extract information from Apache Parquet. Once we have gotten to this point, the next steps will be figured out accordingly. 
 
 ### How to build/run
-Make sure you're in the director /parquet-oci/
 
 `gradle build` 
 
@@ -21,4 +20,4 @@ The file will be downloaded into your home directory
 
 The file will then be converted and put in your home directory
 
-`curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/../{csvFile}"}' http://localhost:8080/convert/{csvFile}
+`curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/../{csvFile}"}' http://localhost:8080/convert/{csvFile}`
