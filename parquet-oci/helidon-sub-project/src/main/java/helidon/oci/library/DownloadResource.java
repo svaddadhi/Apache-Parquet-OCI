@@ -17,6 +17,7 @@ import java.io.File;
 @RequestScoped
 public class DownloadResource {
     // curl -X GET http://localhost:8080/download/axovcbqne66q/sample-bucket/sample1.csv
+    //curl -X GET http://localhost:8080/download/axvsvpirtkel/bucket-20200129-1839/example.csv
 
     @GET
     @Path("{namespace}/{bucket}/{object}")

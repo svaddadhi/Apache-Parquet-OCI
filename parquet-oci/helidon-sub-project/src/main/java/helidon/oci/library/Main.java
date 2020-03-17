@@ -47,6 +47,16 @@ public final class Main {
 
         System.out.println("http://localhost:" + server.port() + "/greet");
     }
+    public static Server main2() throws IOException {
+        // load logging configuration
+        setupLogging();
+
+        // start the server
+        Server server = startServer();
+
+        System.out.println("http://localhost:" + server.port() + "/greet");
+        return server;
+    }
 
     /**
      * Start the server.
@@ -62,7 +72,7 @@ public final class Main {
     /**
      * Configure logging from logging.properties file.
      */
-    private static void setupLogging() throws IOException {
+    public static void setupLogging() throws IOException {
         try (InputStream is = Main.class.getResourceAsStream("/logging.properties")) {
             LogManager.getLogManager().readConfiguration(is);
         }
