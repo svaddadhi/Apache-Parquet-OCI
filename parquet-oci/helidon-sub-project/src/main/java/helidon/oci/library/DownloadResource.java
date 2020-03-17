@@ -3,13 +3,8 @@ package helidon.oci.library;
 import library.DownloadObject;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.JsonObject;
 import javax.ws.rs.*;
-
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.io.File;
 
 
@@ -33,10 +28,7 @@ public class DownloadResource {
         catch(Exception e) {
             return Response.status(Integer.parseInt(e.getMessage().substring(1, 4))).build();
         }
-        // TODO: Error handling (404, 400, etc.)
 
         return Response.ok().build();
     }
-
-
 }

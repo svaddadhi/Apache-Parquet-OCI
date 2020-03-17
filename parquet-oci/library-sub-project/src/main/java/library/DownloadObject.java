@@ -1,6 +1,5 @@
 package library;
 
-
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
@@ -19,34 +18,23 @@ public class DownloadObject {
     String bucketName ;
     String objectName;
     String saveFilePath;
-    public DownloadObject(String namespaceName,String bucketName,String objectName,String saveFilePath){
 
-        this.bucketName=bucketName;
-        this.namespaceName=namespaceName;
-        this.objectName=objectName;
-        this.saveFilePath=saveFilePath;
-
-
+    public DownloadObject(String namespaceName, String bucketName, String objectName, String saveFilePath){
+        this.bucketName = bucketName;
+        this.namespaceName = namespaceName;
+        this.objectName = objectName;
+        this.saveFilePath = saveFilePath;
     }
+
     public void download() throws Exception {
         String configurationFilePath = "~/.oci/config";
         String profile = "DEFAULT";
-
-        //String namespaceName = "axvsvpirtkel";
-        //String bucketName ="bucket-20200129-1839";
-        //String objectName = "example.csv";
-        //String saveFilePath = "/home/david/Descargas/prueba.csv";
 
         AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
 
         ObjectStorage client = new ObjectStorageClient(provider);
         client.setRegion(Region.US_PHOENIX_1);
-
-
-
-
-
 
         // fetch the object just uploaded
         GetObjectResponse getResponse =
@@ -81,6 +69,4 @@ public class DownloadObject {
             // use fileStream
         } // try-with-resources automatically closes fileStream
     }
-
-
 }

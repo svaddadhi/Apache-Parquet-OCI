@@ -1,6 +1,5 @@
 package library;
 
-
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
@@ -25,14 +24,11 @@ public class UploadObject {
     String objectName;
     File body;
 
-    public UploadObject(String namespaceName, String bucketName, String objectName,String body){
-        this.namespaceName=namespaceName;
-        this.bucketName=bucketName;
-        this.objectName=objectName;
-        this.body=new File(body);
-
-
-
+    public UploadObject(String namespaceName, String bucketName, String objectName, String body){
+        this.namespaceName = namespaceName;
+        this.bucketName = bucketName;
+        this.objectName = objectName;
+        this.body = new File(body);
     }
 
     public void upload() throws Exception {
@@ -44,13 +40,6 @@ public class UploadObject {
         String contentEncoding = "UTF-8";
         String contentLanguage = "en-US";
 
-    /*
-        String namespaceName = "axvsvpirtkel";
-        String bucketName ="bucket-20200129-1839";
-        String objectName = "example.csv";
-        File body = new File("/home/david/Descargas/example.csv");
-
-     */
 
         AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
@@ -86,6 +75,7 @@ public class UploadObject {
         catch(Exception e) {
             throw new Exception("{404}");
         }
+
         // upload request and print result
         // if multi-part is used, and any part fails, the entire upload fails and will throw BmcException
         UploadResponse response = uploadManager.upload(uploadDetails);

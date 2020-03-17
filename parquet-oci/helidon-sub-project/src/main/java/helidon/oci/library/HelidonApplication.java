@@ -40,11 +40,8 @@ public class HelidonApplication extends Application {
         set.add(UploadResource.class);
         set.add(DownloadResource.class);
         set.add(GreetResource.class);
+        set.add(ConvertResource.class);
         return Collections.unmodifiableSet(set);
     }
 
-//    @Override
-//    public Set<Class<?>> getClasses() {
-//        return Set.of(GreetResource.class);
-//    }
 }

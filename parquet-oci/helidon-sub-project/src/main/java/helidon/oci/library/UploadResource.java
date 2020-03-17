@@ -34,8 +34,6 @@ public class UploadResource {
             return Response.status(Integer.parseInt(e.getMessage().substring(1, 4))).build();
         }
 
-        // TODO: Error handling (404, 400, etc.)
-
         return Response.ok().build();
     }
 
