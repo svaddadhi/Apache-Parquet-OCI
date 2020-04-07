@@ -11,3 +11,5 @@ rootProject.name = 'parquet-oci'
 include ':library-sub-project' , ':helidon-sub-project'
 project(':library-sub-project').projectDir = new File('library-sub-project')
 project(':helidon-sub-project').projectDir = new File('helidon-sub-project')
+include 'benchmarking'
+
