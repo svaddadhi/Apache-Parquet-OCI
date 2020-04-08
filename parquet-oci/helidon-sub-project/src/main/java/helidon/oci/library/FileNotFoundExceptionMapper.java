@@ -10,6 +10,6 @@ import static javax.ws.rs.core.Response.status;
 public class FileNotFoundExceptionMapper implements ExceptionMapper<FileNotFoundException> {
     @Override
     public Response toResponse(FileNotFoundException exception) {
-        return status(Response.Status.NOT_FOUND).entity(exception.getMessage()).build();
+        return status(Response.Status.BAD_REQUEST).entity(exception.getMessage()).build();
     }
 }
