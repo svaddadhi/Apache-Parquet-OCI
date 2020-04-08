@@ -27,6 +27,7 @@ public class DownloadObject {
     }
 
     public void download() throws Exception {
+        // TODO: make config file path and profile configurable
         String configurationFilePath = "~/.oci/config";
         String profile = "DEFAULT";
 
@@ -34,6 +35,8 @@ public class DownloadObject {
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
 
         ObjectStorage client = new ObjectStorageClient(provider);
+
+        // TODO: make region configurable
         client.setRegion(Region.US_PHOENIX_1);
 
         // fetch the object just uploaded
@@ -44,7 +47,6 @@ public class DownloadObject {
                                 .bucketName(bucketName)
                                 .objectName(objectName)
                                 .build());
-
 
         // opens input stream from the HTTP connection
         InputStream inputStream = getResponse.getInputStream();
@@ -61,8 +63,6 @@ public class DownloadObject {
 
         outputStream.close();
         inputStream.close();
-
-        System.out.println("File downloaded");
 
         // stream contents should match the file uploaded
         try (final InputStream fileStream = getResponse.getInputStream()) {

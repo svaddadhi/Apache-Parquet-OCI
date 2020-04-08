@@ -32,19 +32,22 @@ public class UploadObject {
     }
 
     public void upload() throws Exception {
+        // TODO: make config file path and profile configurable
         String configurationFilePath = "~/.oci/config";
         String profile = "DEFAULT";
 
+        // TODO: make this configurable (?)
         Map<String, String> metadata = null;
         String contentType = "text/csv";
         String contentEncoding = "UTF-8";
         String contentLanguage = "en-US";
 
-
         AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
 
         ObjectStorage client = new ObjectStorageClient(provider);
+
+        // TODO: make region configurable
         client.setRegion(Region.US_PHOENIX_1);
 
         // configure upload settings as desired
@@ -68,12 +71,11 @@ public class UploadObject {
                         .build();
 
         UploadRequest uploadDetails = null;
-
         try {
             uploadDetails = UploadRequest.builder(body).allowOverwrite(true).build(request);
         }
         catch(Exception e) {
-            throw new Exception("{404}");
+            throw e;
         }
 
         // upload request and print result

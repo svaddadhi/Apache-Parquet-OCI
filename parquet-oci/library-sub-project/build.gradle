@@ -1,7 +1,25 @@
+/* JMH micro-benchmarking framework */
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "me.champeau.gradle:jmh-gradle-plugin:0.4.5"
+    }
+}
+
 plugins {
     id 'java'
     id 'application'
+    id "me.champeau.gradle.jmh" version "0.4.5"
 }
+
+
+
 sourceCompatibility = 11
 targetCompatibility = 11
 
@@ -38,6 +56,8 @@ dependencies {
     compile(group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.2.1'){
         exclude group: 'com.sun.jersey', module: 'jersey-server'
     }
+
+    /** JMH **/
 }
 
 mainClassName = 'library.Library'

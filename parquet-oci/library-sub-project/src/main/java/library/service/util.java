@@ -15,7 +15,7 @@ public class util {
         System.exit(254);
     }
 
-    public static void wrtieFile (String dir, String fname, String cont) {
+    public static void writeFile (String dir, String fname, String cont) {
         try {
             mkdir(dir);
             if (dir.charAt(dir.length() - 1) != '/') dir = dir + "/";

@@ -31,7 +31,11 @@ public class UploadResource {
             upload.upload();
         }
         catch(Exception e) {
-            return Response.status(Integer.parseInt(e.getMessage().substring(1, 4))).build();
+            if(Integer.parseInt(e.getMessage().substring(1, 4)) == 404) {
+                throw new FileNotFoundException(object);
+            } else {
+                return Response.status(500).build();
+            }
         }
 
         return Response.ok().build();

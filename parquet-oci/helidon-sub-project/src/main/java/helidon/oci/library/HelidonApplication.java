@@ -41,6 +41,7 @@ public class HelidonApplication extends Application {
         set.add(DownloadResource.class);
         set.add(GreetResource.class);
         set.add(ConvertResource.class);
+        set.add(FileNotFoundExceptionMapper.class);
         return Collections.unmodifiableSet(set);
     }
 
