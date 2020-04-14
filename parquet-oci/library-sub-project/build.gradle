@@ -1,4 +1,9 @@
 /* JMH micro-benchmarking framework */
+/*
+ * See: https://github.com/melix/jmh-gradle-plugin
+ *      https://stackoverflow.com/questions/20443997/how-to-use-jmh-with-gradle
+ *      https://gist.github.com/mrbald/7bbb5113c3164d5243314da8c28649a1#file-build-gradle-L33
+ */
 
 buildscript {
     repositories {
@@ -15,13 +20,28 @@ buildscript {
 plugins {
     id 'java'
     id 'application'
+    id 'scala'
     id "me.champeau.gradle.jmh" version "0.4.5"
 }
 
-
-
 sourceCompatibility = 11
 targetCompatibility = 11
+
+sourceSets.main {
+    java.srcDirs = ['src/main/java']
+}
+
+sourceSets.jmh {
+    java.srcDirs = ['src/jmh/java']
+}
+
+sourceSets {
+    jmh {
+        java.srcDirs = ['src/jmh/java']
+        resources.srcDirs = ['src/jmh/resoures']
+        compileClasspath += sourceSets.main.runtimeClasspath
+    }
+}
 
 dependencies {
     /** Oracle SDK **/
@@ -58,6 +78,10 @@ dependencies {
     }
 
     /** JMH **/
+    jmhImplementation 'org.openjdk.jmh:jmh-core:1.21'
+    jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
+    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
 }
 
 mainClassName = 'library.Library'
+classes.finalizedBy(jmhClasses)
