@@ -82,7 +82,6 @@ dependencies {
 
 
     /** JMH **/
-<<<<<<< HEAD
 
     /** JUnit **/
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
@@ -94,11 +93,11 @@ dependencies {
 //    useJUnitPlatform()
 //}
 
-mainClassName = 'library.Library' {
-    jmhImplementation 'org.openjdk.jmh:jmh-core:1.21'
-    jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
-    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
-}
+//mainClassName = 'library.Library' {
+//    jmhImplementation 'org.openjdk.jmh:jmh-core:1.21'
+//    jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
+//    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
+//}
 
 mainClassName = 'library.Library'
-classes.finalizedBy(jmhClasses)
+//classes.finalizedBy(jmhClasses)
