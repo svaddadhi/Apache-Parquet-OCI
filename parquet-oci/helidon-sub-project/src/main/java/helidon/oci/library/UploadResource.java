@@ -14,7 +14,7 @@ import java.util.Collections;
 @Path("/upload")
 @RequestScoped
 public class UploadResource {
-    // curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/yolo"}' http://localhost:8080/upload/axovcbqne66q/sample-bucket/yolo
+    // curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/file_to_convert.parquet"}' http://localhost:8080/upload/axovcbqne66q/sample-bucket/file_to_convert.parquet
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

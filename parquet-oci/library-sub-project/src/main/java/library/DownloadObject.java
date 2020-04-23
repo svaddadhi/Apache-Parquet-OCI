@@ -9,6 +9,8 @@ import com.oracle.bmc.objectstorage.requests.GetObjectRequest;
 import com.oracle.bmc.objectstorage.responses.GetObjectResponse;
 
 
+import javax.ws.rs.GET;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 
@@ -27,17 +29,19 @@ public class DownloadObject {
     }
 
     public void download() throws Exception {
-        // TODO: make config file path and profile configurable
-        String configurationFilePath = "~/.oci/config";
-        String profile = "DEFAULT";
+        // get the property values
+        GetPropertyValues propertyObj = new GetPropertyValues();
+
+        String configurationFilePath = propertyObj.getPropValue("configurationFilePath");
+        String profile = propertyObj.getPropValue("profile");
 
         AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
 
         ObjectStorage client = new ObjectStorageClient(provider);
 
-        // TODO: make region configurable
-        client.setRegion(Region.US_PHOENIX_1);
+        String region = propertyObj.getPropValue("region");
+        client.setRegion(region);
 
         // fetch the object just uploaded
         GetObjectResponse getResponse =

@@ -16,7 +16,7 @@ import java.io.File;
 @RequestScoped
 public class ConvertResource {
 
-    // curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/sample2.csv"}' http://localhost:8080/convert/sample2.csv
+    // curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/file_to_convert.csv"}' http://localhost:8080/convert/file_to_convert.csv
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -25,6 +25,7 @@ public class ConvertResource {
         String csvPath = json.getString("filePath");
         String parPath = System.getProperty("user.home")+ File.separator + file.substring(0, file.length() - ".csv".length()) + ".parquet";
 
+        // TODO: Differentiate 400 and 500 errors somehow
         try {
             new ConvertObject(csvPath, parPath);
         }

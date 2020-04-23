@@ -32,15 +32,16 @@ public class UploadObject {
     }
 
     public void upload() throws Exception {
-        // TODO: make config file path and profile configurable
-        String configurationFilePath = "~/.oci/config";
-        String profile = "DEFAULT";
+        // get the property values
+        GetPropertyValues propertyObj = new GetPropertyValues();
 
-        // TODO: make this configurable (?)
+        String configurationFilePath = propertyObj.getPropValue("configurationFilePath");
+        String profile = propertyObj.getPropValue("profile");
+
         Map<String, String> metadata = null;
-        String contentType = "text/csv";
-        String contentEncoding = "UTF-8";
-        String contentLanguage = "en-US";
+        String contentType = propertyObj.getPropValue("contentType");
+        String contentEncoding = propertyObj.getPropValue("contentEncoding");
+        String contentLanguage = propertyObj.getPropValue("contentLanguage");
 
         AuthenticationDetailsProvider provider =
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
@@ -48,7 +49,8 @@ public class UploadObject {
         ObjectStorage client = new ObjectStorageClient(provider);
 
         // TODO: make region configurable
-        client.setRegion(Region.US_PHOENIX_1);
+        String region = propertyObj.getPropValue("region");
+        client.setRegion(region);
 
         // configure upload settings as desired
         UploadConfiguration uploadConfiguration =

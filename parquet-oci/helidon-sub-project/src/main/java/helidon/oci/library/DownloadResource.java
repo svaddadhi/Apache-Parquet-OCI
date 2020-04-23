@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 @Path("/download")
 @RequestScoped
 public class DownloadResource {
-    // curl -X GET http://localhost:8080/download/axovcbqne66q/sample-bucket/sample1.csv
+    // curl -X GET http://localhost:8080/download/axovcbqne66q/sample-bucket/file_to_convert.csv
 
     private final static Logger LOGGER = Logger.getLogger(DownloadResource.class.getName());
 
@@ -20,7 +20,7 @@ public class DownloadResource {
     @Path("{namespace}/{bucket}/{object}")
     public Response downloadFile(@PathParam("namespace") String namespace,
                                  @PathParam("bucket") String bucket,
-                                 @PathParam("object") String object){
+                                 @PathParam("object") String object) throws Exception {
 
         // TODO: make filePath configurable
         String filePath = System.getProperty("user.home") + File.separator + object;

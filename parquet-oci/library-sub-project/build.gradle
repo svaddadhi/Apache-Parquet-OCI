@@ -57,7 +57,20 @@ dependencies {
         exclude group: 'com.sun.jersey', module: 'jersey-server'
     }
 
+    // https://mvnrepository.com/artifact/org.apache.parquet/parquet-tools
+    compile group: 'org.apache.parquet', name: 'parquet-tools', version: '1.10.1'
+
+
     /** JMH **/
+
+    /** JUnit **/
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+
 }
+
+//test {
+//    useJUnitPlatform()
+//}
 
 mainClassName = 'library.Library'
