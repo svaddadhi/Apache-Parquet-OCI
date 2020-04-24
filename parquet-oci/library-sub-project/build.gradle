@@ -82,6 +82,28 @@ dependencies {
 
 
     /** JMH **/
+    val benchmark: SourceSet by sourceSets.creating {
+        java {
+            srcDir("src/jmh/java")
+            resources {
+                srcDir(file("src/jmh/resources"))
+            }
+        }
+    }
+
+    benchmarkCompile(sourceSets.main.get().output)
+    benchmarkCompile(sourceSets.test.get().output)
+
+    benchmarkCompile(group="org.openjdk.jmh", name="jmh-core",version="1.23")
+    benchmarkAnnotationProcessor(group="org.openjdk.jmh", name="jmh-generator-annprocess", version="1.23")
+
+    benchmarkCompile(configurations.compile.get())
+    benchmarkCompile(configurations.compileClasspath.get())
+    benchmarkCompile(configurations.testCompile.get())
+
+    benchmarkRuntime(configurations.runtime.get())
+    benchmarkRuntime(configurations.runtimeClasspath.get())
+    benchmarkRuntime(configurations.testRuntime.get())
 
     /** JUnit **/
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
