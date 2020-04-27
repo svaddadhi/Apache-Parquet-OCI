@@ -24,8 +24,6 @@ plugins {
 group = 'helidon.oci.library'
 version = '1.0-SNAPSHOT'
 
-sourceCompatibility = 11
-targetCompatibility = 11
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }

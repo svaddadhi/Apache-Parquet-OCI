@@ -7,8 +7,6 @@
 
 apply plugin: 'maven'
 
-
-
 allprojects {
     repositories {
         jcenter()

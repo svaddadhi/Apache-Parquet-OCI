@@ -24,8 +24,9 @@ plugins {
     id "me.champeau.gradle.jmh" version "0.4.5"
 }
 
-sourceCompatibility = 11
-targetCompatibility = 11
+configurations {
+    jmh
+}
 
 sourceSets.main {
     java.srcDirs = ['src/main/java']
@@ -33,15 +34,12 @@ sourceSets.main {
 
 sourceSets.jmh {
     java.srcDirs = ['src/jmh/java']
+    resources.srcDirs = ['src/jmh/resources']
 }
 
-sourceSets {
-    jmh {
-        java.srcDirs = ['src/jmh/java']
-        resources.srcDirs = ['src/jmh/resoures']
-        compileClasspath += sourceSets.main.runtimeClasspath
-    }
-}
+
+sourceCompatibility = '1.12'
+targetCompatibility = '1.12'
 
 dependencies {
     /** Oracle SDK **/
@@ -80,46 +78,43 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.parquet/parquet-tools
     compile group: 'org.apache.parquet', name: 'parquet-tools', version: '1.10.1'
 
+    jmhCompile(sourceSets.main.output)
+    jmhCompile(sourceSets.test.output)
 
-    /** JMH **/
-    val benchmark: SourceSet by sourceSets.creating {
-        java {
-            srcDir("src/jmh/java")
-            resources {
-                srcDir(file("src/jmh/resources"))
-            }
-        }
-    }
+    jmhCompile(group: 'org.openjdk.jmh', name: "jmh-core", version: "1.23")
+    jmhAnnotationProcessor(group: "org.openjdk.jmh", name: "jmh-generator-annprocess", version: "1.23")
 
-    benchmarkCompile(sourceSets.main.get().output)
-    benchmarkCompile(sourceSets.test.get().output)
+    jmhCompile(configurations.compile)
+    jmhCompile(configurations.compileClasspath)
+    jmhCompile(configurations.testCompile)
 
-    benchmarkCompile(group="org.openjdk.jmh", name="jmh-core",version="1.23")
-    benchmarkAnnotationProcessor(group="org.openjdk.jmh", name="jmh-generator-annprocess", version="1.23")
-
-    benchmarkCompile(configurations.compile.get())
-    benchmarkCompile(configurations.compileClasspath.get())
-    benchmarkCompile(configurations.testCompile.get())
-
-    benchmarkRuntime(configurations.runtime.get())
-    benchmarkRuntime(configurations.runtimeClasspath.get())
-    benchmarkRuntime(configurations.testRuntime.get())
+    jmhRuntime(configurations.runtime)
+    jmhRuntime(configurations.runtimeClasspath)
+    jmhRuntime(configurations.testRuntime)
 
     /** JUnit **/
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
+    jmhCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+    jmhRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
 
 }
 
-//test {
-//    useJUnitPlatform()
-//}
+task benchmark(type: Test) {
+    useJUnitPlatform()
+    group = "verification"
+    testClassesDirs = sourceSets.jmh.output.classesDirs
+    classpath = sourceSets.jmh.runtimeClasspath
 
-//mainClassName = 'library.Library' {
-//    jmhImplementation 'org.openjdk.jmh:jmh-core:1.21'
-//    jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
-//    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
-//}
+    maxHeapSize = "4G"
 
-mainClassName = 'library.Library'
-//classes.finalizedBy(jmhClasses)
+    // this is only valid pre log4j-2.9
+    systemProperty("org.apache.logging.log4j.simplelog.StatusLogger.level", "DEBUG")
+    // this is valid post log4j-2.9
+    systemProperty("log4j2.debug", "true")
+}
+
+test {
+    useJUnitPlatform()
+}
