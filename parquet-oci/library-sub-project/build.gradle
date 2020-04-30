@@ -44,6 +44,11 @@ sourceSets {
 }
 
 dependencies {
+//    /** Apache Drill **/
+//
+//    // https://mvnrepository.com/artifact/org.apache.drill.exec/drill-java-exec
+//    compile group: 'org.apache.drill.exec', name: 'drill-java-exec', version: '1.17.0'
+
     /** Oracle SDK **/
 
     // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-bom

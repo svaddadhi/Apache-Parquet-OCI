@@ -13,13 +13,13 @@ public class ConvertObject {
         new Conv2Csv(src, tar, len).init().conv().close();
     }
 
-    public static void main (String argv[]) {
-        //new ConvertObject(System.getProperty("user.home")+ "/sample2.csv",System.getProperty("user.home")+ "/sample2.parquet");
-        try {
-            new ConvertObject(System.getProperty("user.home") + "/userdata1.parquet", System.getProperty("user.home") + "/userdata1.csv", 100);
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main (String argv[]) {
+//        //new ConvertObject(System.getProperty("user.home")+ "/sample2.csv",System.getProperty("user.home")+ "/sample2.parquet");
+//        try {
+//            new ConvertObject(System.getProperty("user.home") + "/userdata1.parquet", System.getProperty("user.home") + "/userdata1.csv", 100);
+//        }
+//        catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

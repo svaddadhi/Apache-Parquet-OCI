@@ -2,6 +2,7 @@ package library;
 
 import java.sql.*;
 import java.lang.*;
+import java.math.*;
 
 public class DrillConvert {
 
@@ -11,11 +12,11 @@ public class DrillConvert {
         Class.forName("org.apache.drill.jdbc.Driver");
 
         // Connect the drill using drill path
-        Connection connection = DriverManager.getConnection("jdbc:drill: = localhost:2181/drill/drillbits1");
+        Connection connection = DriverManager.getConnection("jdbc:drill:drillbit=localhost");
 
         // Query drill
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * from cp.`employee.json` LIMIT 3");
+        ResultSet rs = st.executeQuery("SELECT * from dfs.`userdata1.parquet` LIMIT 3");
 
         // Fetch and show the result
         while(rs.next()){

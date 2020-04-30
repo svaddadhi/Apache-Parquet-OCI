@@ -1,4 +1,4 @@
-package library;
+package library.oci;
 
 import java.io.File;
 import java.io.InputStream;
@@ -16,6 +16,7 @@ import com.oracle.bmc.objectstorage.transfer.UploadConfiguration;
 import com.oracle.bmc.objectstorage.transfer.UploadManager;
 import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadRequest;
 import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadResponse;
+import library.GetPropertyValues;
 
 
 public class UploadObject {

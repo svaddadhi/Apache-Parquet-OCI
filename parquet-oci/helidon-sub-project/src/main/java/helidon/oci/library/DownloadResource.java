@@ -1,6 +1,6 @@
 package helidon.oci.library;
 
-import library.DownloadObject;
+import library.oci.DownloadObject;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;

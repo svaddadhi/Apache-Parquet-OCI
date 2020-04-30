@@ -1,15 +1,12 @@
 package helidon.oci.library;
 
-import library.UploadObject;
+import library.oci.UploadObject;
 
 import javax.enterprise.context.RequestScoped;
-import javax.json.Json;
-import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
 
 @Path("/upload")
 @RequestScoped
