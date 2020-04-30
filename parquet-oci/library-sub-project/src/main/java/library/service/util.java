@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class util {
+
     public static void segFault (String err) {
         System.out.println("Segmentation Fault: " + err);
         System.exit(255);

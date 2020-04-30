@@ -1,4 +1,4 @@
-package library.oci;
+package library;
 
 import java.io.File;
 import java.io.InputStream;
@@ -16,7 +16,7 @@ import com.oracle.bmc.objectstorage.transfer.UploadConfiguration;
 import com.oracle.bmc.objectstorage.transfer.UploadManager;
 import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadRequest;
 import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadResponse;
-import library.GetPropertyValues;
+import library.service.GetPropertyValues;
 
 
 public class UploadObject {
@@ -33,11 +33,10 @@ public class UploadObject {
     }
 
     public void upload() throws Exception {
-        // get the property values
         GetPropertyValues propertyObj = new GetPropertyValues();
 
         String configurationFilePath = propertyObj.getPropValue("configurationFilePath");
-        String profile = propertyObj.getPropValue("profile");
+        String profile = propertyObj.getPropValue("profile");;
 
         Map<String, String> metadata = null;
         String contentType = propertyObj.getPropValue("contentType");
@@ -48,10 +47,8 @@ public class UploadObject {
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
 
         ObjectStorage client = new ObjectStorageClient(provider);
-
-        // TODO: make region configurable
-        String region = propertyObj.getPropValue("region");
-        client.setRegion(region);
+//        String region = propertyObj.getPropValue("region");
+        client.setRegion(Region.US_PHOENIX_1);
 
         // configure upload settings as desired
         UploadConfiguration uploadConfiguration =
@@ -64,22 +61,17 @@ public class UploadObject {
 
         PutObjectRequest request =
                 PutObjectRequest.builder()
-                        .bucketName(bucketName)
-                        .namespaceName(namespaceName)
-                        .objectName(objectName)
+                        .bucketName(this.bucketName)
+                        .namespaceName(this.namespaceName)
+                        .objectName(this.objectName)
                         .contentType(contentType)
                         .contentLanguage(contentLanguage)
                         .contentEncoding(contentEncoding)
                         .opcMeta(metadata)
                         .build();
 
-        UploadRequest uploadDetails = null;
-        try {
-            uploadDetails = UploadRequest.builder(body).allowOverwrite(true).build(request);
-        }
-        catch(Exception e) {
-            throw e;
-        }
+        UploadRequest uploadDetails =
+                UploadRequest.builder(body).allowOverwrite(true).build(request);
 
         // upload request and print result
         // if multi-part is used, and any part fails, the entire upload fails and will throw BmcException
@@ -90,9 +82,9 @@ public class UploadObject {
         GetObjectResponse getResponse =
                 client.getObject(
                         GetObjectRequest.builder()
-                                .namespaceName(namespaceName)
-                                .bucketName(bucketName)
-                                .objectName(objectName)
+                                .namespaceName(this.namespaceName)
+                                .bucketName(this.bucketName)
+                                .objectName(this.objectName)
                                 .build());
 
         // stream contents should match the file uploaded

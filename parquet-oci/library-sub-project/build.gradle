@@ -24,24 +24,21 @@ plugins {
     id "me.champeau.gradle.jmh" version "0.4.5"
 }
 
-sourceCompatibility = 11
-targetCompatibility = 11
+//configurations {
+//    jmh
+//}
 
-sourceSets.main {
-    java.srcDirs = ['src/main/java']
-}
+//sourceSets.main {
+//    java.srcDirs = ['src/main/java']
+//}
+//
+//sourceSets.jmh {
+//    java.srcDirs = ['src/jmh/java']
+//    resources.srcDirs = ['src/jmh/resources']
+//}
 
-sourceSets.jmh {
-    java.srcDirs = ['src/jmh/java']
-}
-
-sourceSets {
-    jmh {
-        java.srcDirs = ['src/jmh/java']
-        resources.srcDirs = ['src/jmh/resoures']
-        compileClasspath += sourceSets.main.runtimeClasspath
-    }
-}
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 dependencies {
 //    /** Apache Drill **/
@@ -85,24 +82,42 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.parquet/parquet-tools
     compile group: 'org.apache.parquet', name: 'parquet-tools', version: '1.10.1'
 
-
     /** JMH **/
+    jmhCompile(sourceSets.main.output)
+    jmhCompile(sourceSets.test.output)
+    jmhCompile(group: 'org.openjdk.jmh', name: "jmh-core", version: "1.23")
+    jmhAnnotationProcessor(group: "org.openjdk.jmh", name: "jmh-generator-annprocess", version: "1.23")
+    jmhCompile(configurations.compile)
+    jmhCompile(configurations.compileClasspath)
+    jmhCompile(configurations.testCompile)
+    jmhRuntime(configurations.runtime)
+    jmhRuntime(configurations.runtimeClasspath)
+    jmhRuntime(configurations.testRuntime)
 
     /** JUnit **/
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
-
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
+    jmhCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+    jmhRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
 }
 
-//test {
+//task benchmark(type: Test) {
 //    useJUnitPlatform()
+//    group = "verification"
+//    testClassesDirs = sourceSets.jmh.output.classesDirs
+//    classpath = sourceSets.jmh.runtimeClasspath
+//
+//    maxHeapSize = "4G"
+//
+//    // this is only valid pre log4j-2.9
+//    systemProperty("org.apache.logging.log4j.simplelog.StatusLogger.level", "DEBUG")
+//    // this is valid post log4j-2.9
+//    systemProperty("log4j2.debug", "true")
 //}
 
-//mainClassName = 'library.Library' {
-//    jmhImplementation 'org.openjdk.jmh:jmh-core:1.21'
-//    jmhImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
-//    jmhAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
-//}
+mainClassName = 'library'
 
-mainClassName = 'library.Library'
-//classes.finalizedBy(jmhClasses)
+test {
+    useJUnitPlatform()
+}

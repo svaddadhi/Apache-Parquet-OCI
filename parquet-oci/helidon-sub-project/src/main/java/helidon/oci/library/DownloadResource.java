@@ -1,6 +1,6 @@
 package helidon.oci.library;
 
-import library.oci.DownloadObject;
+import library.DownloadObject;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
@@ -26,8 +26,8 @@ public class DownloadResource {
         String filePath = System.getProperty("user.home") + File.separator + object;
 
         try {
-            DownloadObject downloadObj = new DownloadObject(namespace, bucket, object, filePath);
-            downloadObj.download();
+            DownloadObject obj = new DownloadObject(namespace, bucket, object, filePath);
+            obj.download();
         }
         catch(Exception e) {
             if(Integer.parseInt(e.getMessage().substring(1, 4)) == 404) {

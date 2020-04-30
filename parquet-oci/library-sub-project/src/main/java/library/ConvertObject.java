@@ -2,24 +2,21 @@ package library;
 
 import library.p2c.Conv2Csv;
 import library.c2p.Conv2Par;
+import library.transformation.NativeTransform;
+import library.transformation.Parquet;
+import library.transformation.ParquetTransform;
+
+import java.sql.SQLException;
 
 public class ConvertObject {
 
-    public ConvertObject(String src, String tar) {
-        new Conv2Par(src, tar).init().conv().close();
+    public ConvertObject(String src, String tar) throws SQLException, ClassNotFoundException {
+        ParquetTransform obj = new NativeTransform(src, tar);
+        obj.convertToParquet();
     }
 
     public ConvertObject(String src, String tar, int len) {
-        new Conv2Csv(src, tar, len).init().conv().close();
+        ParquetTransform obj = new NativeTransform(src, tar, len);
+        obj.convertToCSV();
     }
-
-//    public static void main (String argv[]) {
-//        //new ConvertObject(System.getProperty("user.home")+ "/sample2.csv",System.getProperty("user.home")+ "/sample2.parquet");
-//        try {
-//            new ConvertObject(System.getProperty("user.home") + "/userdata1.parquet", System.getProperty("user.home") + "/userdata1.csv", 100);
-//        }
-//        catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

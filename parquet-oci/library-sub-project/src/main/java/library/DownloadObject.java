@@ -1,4 +1,4 @@
-package library.oci;
+package library;
 
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
@@ -7,11 +7,8 @@ import com.oracle.bmc.objectstorage.ObjectStorage;
 import com.oracle.bmc.objectstorage.ObjectStorageClient;
 import com.oracle.bmc.objectstorage.requests.GetObjectRequest;
 import com.oracle.bmc.objectstorage.responses.GetObjectResponse;
-import library.GetPropertyValues;
+import library.service.GetPropertyValues;
 
-
-import javax.ws.rs.GET;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileOutputStream;
 
@@ -41,8 +38,8 @@ public class DownloadObject {
 
         ObjectStorage client = new ObjectStorageClient(provider);
 
-        String region = propertyObj.getPropValue("region");
-        client.setRegion(region);
+        // String region = propertyObj.getPropValue("region");
+        client.setRegion(Region.US_PHOENIX_1);
 
         // fetch the object just uploaded
         GetObjectResponse getResponse =

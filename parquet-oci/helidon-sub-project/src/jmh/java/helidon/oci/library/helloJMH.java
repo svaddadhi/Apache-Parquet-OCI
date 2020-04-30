@@ -17,11 +17,11 @@ public class helloJMH {
         System.out.println("Hello World!");
     }
 
+    public void tsetJML() {
+        this.hello();
+    }
+
     public static void main (String[] args) {
-        try {
-            new Runner(new OptionsBuilder().include(helloJMH.class.getSimpleName()).forks(1).build()).run();
-        } catch (RunnerException e) {
-            System.out.println("Benchmarking failed.");
-        }
+        new helloJMH().hello();
     }
 }

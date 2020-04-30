@@ -27,7 +27,7 @@ public class ConvertResource {
 
         // TODO: Differentiate 400 and 500 errors somehow
         try {
-            new ConvertObject(csvPath, parPath);
+            new ConvertObject(csvPath,parPath);
         }
         catch(Exception e) {
             return Response.status(400).build();
