@@ -1,6 +1,6 @@
 package helidon.oci.library;
 
-import library.UploadObject;
+import library.OciObject;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.JsonObject;
@@ -24,8 +24,8 @@ public class UploadResource {
         String filePath = jsonObject.getString("filePath");
 
         try {
-            UploadObject upload = new UploadObject(namespace, bucket, object, filePath);
-            upload.upload();
+            OciObject upload = new OciObject();
+            upload.upload(namespace, bucket, object, filePath);
         }
         catch(Exception e) {
             if(Integer.parseInt(e.getMessage().substring(1, 4)) == 404) {

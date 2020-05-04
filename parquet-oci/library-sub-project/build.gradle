@@ -119,3 +119,7 @@ mainClassName = 'library'
 test {
     useJUnitPlatform()
 }
+
+dependencies {
+    implementation 'junit:junit:4.12'
+}

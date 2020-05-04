@@ -1,9 +1,5 @@
 package library;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.Map;
-
 import com.oracle.bmc.Region;
 import com.oracle.bmc.auth.AuthenticationDetailsProvider;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
@@ -14,25 +10,65 @@ import com.oracle.bmc.objectstorage.requests.PutObjectRequest;
 import com.oracle.bmc.objectstorage.responses.GetObjectResponse;
 import com.oracle.bmc.objectstorage.transfer.UploadConfiguration;
 import com.oracle.bmc.objectstorage.transfer.UploadManager;
-import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadRequest;
-import com.oracle.bmc.objectstorage.transfer.UploadManager.UploadResponse;
 import library.service.GetPropertyValues;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.Map;
 
-public class UploadObject {
-    String namespaceName;
-    String bucketName;
-    String objectName;
-    File body;
+public class OciObject {
+    public boolean download(String namespaceName, String bucketName, String objectName, String filePath) throws Exception {
+        // get the property values
+        GetPropertyValues propertyObj = new GetPropertyValues();
 
-    public UploadObject(String namespaceName, String bucketName, String objectName, String body){
-        this.namespaceName = namespaceName;
-        this.bucketName = bucketName;
-        this.objectName = objectName;
-        this.body = new File(body);
+        String configurationFilePath = propertyObj.getPropValue("configurationFilePath");
+        String profile = propertyObj.getPropValue("profile");
+
+        AuthenticationDetailsProvider provider =
+                new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
+
+        ObjectStorage client = new ObjectStorageClient(provider);
+
+        // String region = propertyObj.getPropValue("region");
+        client.setRegion(Region.US_PHOENIX_1);
+
+        // fetch the object just uploaded
+        GetObjectResponse getResponse =
+                client.getObject(
+                        GetObjectRequest.builder()
+                                .namespaceName(namespaceName)
+                                .bucketName(bucketName)
+                                .objectName(objectName)
+                                .build());
+
+        // opens input stream from the HTTP connection
+        InputStream inputStream = getResponse.getInputStream();
+
+
+        // opens an output stream to save into file
+        FileOutputStream outputStream = new FileOutputStream(filePath);
+
+        int bytesRead = -1;
+        byte[] buffer = new byte[4096];
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+
+        outputStream.close();
+        inputStream.close();
+
+        // stream contents should match the file uploaded
+        try (final InputStream fileStream = getResponse.getInputStream()) {
+            // use fileStream
+        } // try-with-resources automatically closes fileStream
+
+        return true;
     }
 
-    public void upload() throws Exception {
+    public boolean upload(String namespaceName, String bucketName, String objectName, String filePath) throws Exception {
+        File file = new File(filePath);
+
         GetPropertyValues propertyObj = new GetPropertyValues();
 
         String configurationFilePath = propertyObj.getPropValue("configurationFilePath");
@@ -61,35 +97,37 @@ public class UploadObject {
 
         PutObjectRequest request =
                 PutObjectRequest.builder()
-                        .bucketName(this.bucketName)
-                        .namespaceName(this.namespaceName)
-                        .objectName(this.objectName)
+                        .bucketName(bucketName)
+                        .namespaceName(namespaceName)
+                        .objectName(objectName)
                         .contentType(contentType)
                         .contentLanguage(contentLanguage)
                         .contentEncoding(contentEncoding)
                         .opcMeta(metadata)
                         .build();
 
-        UploadRequest uploadDetails =
-                UploadRequest.builder(body).allowOverwrite(true).build(request);
+        UploadManager.UploadRequest uploadDetails =
+                UploadManager.UploadRequest.builder(file).allowOverwrite(true).build(request);
 
         // upload request and print result
         // if multi-part is used, and any part fails, the entire upload fails and will throw BmcException
-        UploadResponse response = uploadManager.upload(uploadDetails);
-        System.out.println(response);
+        UploadManager.UploadResponse response = uploadManager.upload(uploadDetails);
+        //System.out.println(response);
 
         // fetch the object just uploaded
         GetObjectResponse getResponse =
                 client.getObject(
                         GetObjectRequest.builder()
-                                .namespaceName(this.namespaceName)
-                                .bucketName(this.bucketName)
-                                .objectName(this.objectName)
+                                .namespaceName(namespaceName)
+                                .bucketName(bucketName)
+                                .objectName(objectName)
                                 .build());
 
         // stream contents should match the file uploaded
         try (final InputStream fileStream = getResponse.getInputStream()) {
             // use fileStream
         } // try-with-resources automatically closes fileStream
+
+        return true;
     }
 }
