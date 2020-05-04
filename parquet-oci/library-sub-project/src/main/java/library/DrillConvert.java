@@ -12,11 +12,11 @@ public class DrillConvert {
         Class.forName("org.apache.drill.jdbc.Driver");
 
         // Connect the drill using drill path
-        Connection connection = DriverManager.getConnection("jdbc:drill:drillbit=localhost");
+        Connection connection = DriverManager.getConnection("jdbc:drill:drillbit=localhost:31010");
 
         // Query drill
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * from dfs.`userdata1.parquet` LIMIT 3");
+        ResultSet rs = st.executeQuery("SELECT * from dfs.`home/phvle/file_to_convert.parquet` LIMIT 3");
 
         // Fetch and show the result
         while(rs.next()){

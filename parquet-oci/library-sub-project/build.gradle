@@ -17,6 +17,7 @@ buildscript {
     }
 }
 
+
 plugins {
     id 'java'
     id 'application'
@@ -41,10 +42,8 @@ sourceCompatibility = '11'
 targetCompatibility = '11'
 
 dependencies {
-//    /** Apache Drill **/
-//
-//    // https://mvnrepository.com/artifact/org.apache.drill.exec/drill-java-exec
-//    compile group: 'org.apache.drill.exec', name: 'drill-java-exec', version: '1.17.0'
+    /** Apache Drill JDBC Driver**/
+    compile files('build/libs/drill-jdbc-all-1.17.0.jar')
 
     /** Oracle SDK **/
 
