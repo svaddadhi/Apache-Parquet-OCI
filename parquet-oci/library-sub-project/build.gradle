@@ -29,10 +29,10 @@ plugins {
 //    jmh
 //}
 
-//sourceSets.main {
-//    java.srcDirs = ['src/main/java']
-//}
-//
+sourceSets.main {
+    java.srcDirs = ['src/main/java']
+}
+
 //sourceSets.jmh {
 //    java.srcDirs = ['src/jmh/java']
 //    resources.srcDirs = ['src/jmh/resources']
@@ -46,7 +46,6 @@ dependencies {
     compile files('build/libs/drill-jdbc-all-1.17.0.jar')
 
     /** Oracle SDK **/
-
     // https://mvnrepository.com/artifact/com.oracle.oci.sdk/oci-java-sdk-bom
     compile group: 'com.oracle.oci.sdk', name: 'oci-java-sdk-bom', version: '1.13.0', ext: 'pom'
 

@@ -1,7 +1,6 @@
 package helidon.oci.library;
 
 import library.ConvertObject;
-import library.DownloadObject;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.JsonObject;
@@ -26,11 +25,11 @@ public class ConvertResource {
         String csvPath = json.getString("filePath");
         String parPath = System.getProperty("user.home")+ File.separator + file.substring(0, file.length() - ".csv".length()) + ".parquet";
 
-        DownloadObject object = new DownloadObject(file,file,file,file);
-
         // TODO: Differentiate 400 and 500 errors somehow
         try {
-            new ConvertObject(csvPath,parPath);
+            System.out.println("asdffffff");
+            ConvertObject asdf = new ConvertObject(csvPath,parPath);
+            asdf.test();
         }
         catch(Exception e) {
             return Response.status(400).build();
