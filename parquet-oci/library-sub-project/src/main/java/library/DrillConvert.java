@@ -1,5 +1,7 @@
 package library;
 
+import library.drill.Drill;
+
 import java.sql.*;
 import java.lang.*;
 import java.math.*;
@@ -8,11 +10,11 @@ public class DrillConvert {
 
     public static void main( String[] args ) throws SQLException, ClassNotFoundException{
 
-        // load the JDBC driver
+        /*// load the JDBC driver
         Class.forName("org.apache.drill.jdbc.Driver");
 
         // Connect the drill using drill path
-        Connection connection = DriverManager.getConnection("jdbc:drill:drillbit=localhost:31010");
+        Connection connection = DriverManager.getConnection("jdbc:drill:drillbit=drill.yg-home.site");
 
         // Query drill
         Statement st = connection.createStatement();
@@ -21,6 +23,7 @@ public class DrillConvert {
         // Fetch and show the result
         while(rs.next()){
             System.out.println("Name: " + rs.getString(2));
-        }
+        }*/
+        Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor();
     }
 }
