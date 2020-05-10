@@ -24,6 +24,6 @@ public class DrillConvert {
         while(rs.next()){
             System.out.println("Name: " + rs.getString(2));
         }*/
-        Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor();
+        Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor().newTable("testTable", new String[] {"PolicyID"}, 1, "/home/drill/FL_insurance_sample.csv");
     }
 }

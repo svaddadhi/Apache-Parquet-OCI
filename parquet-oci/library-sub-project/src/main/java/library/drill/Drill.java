@@ -1,9 +1,6 @@
 package library.drill;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Drill {
     final private String host, protocol;
@@ -36,7 +33,14 @@ public class Drill {
         return this;
     }
 
-    public Drill newTable(String title[], String type[], String prop[]) {
+    public Drill newTable(String name, String title[], int len, String src) throws SQLException {
+        String sql = String.format("create table dfs.tmp.`%s` as select ", name);
+        for (int i = 0; i < len; i++)
+            sql += String.format("columns[%d] as `%s` ", i, title[i]);
+        sql += String.format("from dfs.`%s`", src);
+        System.out.println(sql);
+        ResultSet rs = this.st.executeQuery(sql);
+        while (rs.next()) System.out.println(rs.getString(1));
         return this;
     }
 }
