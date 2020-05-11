@@ -1,5 +1,3 @@
-/* JMH micro-benchmarking framework */
-
 buildscript {
     repositories {
         jcenter()
@@ -12,14 +10,14 @@ buildscript {
     }
 }
 
+//apply plugin: "me.champeau.gradle.jmh"
+
 plugins {
     id 'java'
     id 'application'
     id "me.champeau.gradle.jmh" version "0.4.5"
     id "maven"
 }
-
-//apply plugin: "me.champeau.gradle.jmh"
 
 group = 'helidon.oci.library'
 version = '1.0-SNAPSHOT'
@@ -62,8 +60,6 @@ dependencies {
     /** Javax **/
     compile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
     compile 'javax.json:javax.json-api:1.1.4'
-
-
 }
 
 // define a custom task to copy all dependencies in the runtime classpath
@@ -78,7 +74,9 @@ task copyLibs(type: Copy) {
 copyLibs.dependsOn jar
 assemble.dependsOn copyLibs
 
-// creating a jar file
+// default jar configuration
+// set the main classpath
+// add each jar under build/libs/libs into the classpath
 jar {
     manifest {
         attributes ('Main-Class': 'helidon.oci.library.Main',
@@ -86,8 +84,6 @@ jar {
         )
     }
 }
-
-mainClassName = 'helidon.oci.library.Main'
 
 // task to run the class file
 task runApp(type: JavaExec) {
@@ -101,8 +97,10 @@ task runJar(type: JavaExec) {
     main = 'helidon.oci.library.Main'
 }
 
-//tasks.test {
-//    useJUnitPlatform()
-//}
+tasks.test {
+    useJUnitPlatform()
+}
+
+//mainClassName = 'helidon.oci.library.Main'
 
 

@@ -29,7 +29,6 @@ public class ConvertResource {
         try {
             System.out.println("asdffffff");
             ConvertObject asdf = new ConvertObject(csvPath,parPath);
-            asdf.test();
         }
         catch(Exception e) {
             return Response.status(400).build();

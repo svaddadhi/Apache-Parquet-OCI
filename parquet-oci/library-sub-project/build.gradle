@@ -25,9 +25,9 @@ plugins {
     id "me.champeau.gradle.jmh" version "0.4.5"
 }
 
-//configurations {
-//    jmh
-//}
+configurations {
+    jmh
+}
 
 sourceSets.main {
     java.srcDirs = ['src/main/java']
@@ -121,5 +121,5 @@ test {
 }
 
 dependencies {
-    implementation 'junit:junit:4.12'
+    testImplementation('junit:junit:4.13')
 }
