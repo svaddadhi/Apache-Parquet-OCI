@@ -9,13 +9,13 @@ public class ConvertObject {
 
     /* Constructor for converting CSV -> Parquet */
     public ConvertObject(String src, String tar) throws SQLException, ClassNotFoundException {
-        ParquetTransform obj = new NativeTransform(src, tar);
-        obj.convertToParquet();
+        ParquetTransform obj = new NativeTransform();
+        obj.convertToParquet(src, tar);
     }
 
     /* Constructor for converting Parquet -> CSV */
     public ConvertObject(String src, String tar, int len) {
-        ParquetTransform obj = new NativeTransform(src, tar, len);
-        obj.convertToCSV();
+        ParquetTransform obj = new NativeTransform();
+        obj.convertToCSV(src, tar, len);
     }
 }

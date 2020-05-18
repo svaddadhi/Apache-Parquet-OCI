@@ -6,20 +6,6 @@ import library.p2c.Conv2Csv;
 import java.sql.SQLException;
 
 public class NativeTransform implements ParquetTransform {
-    String src;
-    String dest;
-    int len;
-
-    public NativeTransform(String src, String dest) {
-        this.src = src;
-        this.dest = dest;
-    }
-
-    public NativeTransform(String src, String dest, int len) {
-        this.src = src;
-        this.dest = dest;
-        this.len = len;
-    }
 
     @Override
     public void filterByColumns() {
@@ -32,10 +18,20 @@ public class NativeTransform implements ParquetTransform {
     }
 
     @Override
-    public void convertToParquet() {
+    public void convertToParquet(String tableName, String[] columns, int len, String src) throws SQLException {
+
+    }
+
+    @Override
+    public void convertToParquet(String src, String dest) {
         new Conv2Par(src, dest).init().conv().close();
     }
 
     @Override
-    public void convertToCSV(){ new Conv2Csv(src, dest, len).init().conv().close(); };
+    public void filterByColumns(String tableName, String[] columns, int len, String src) throws SQLException {
+
+    }
+
+    @Override
+    public void convertToCSV(String src, String dest, int len){ new Conv2Csv(src, dest, len).init().conv().close(); };
 }

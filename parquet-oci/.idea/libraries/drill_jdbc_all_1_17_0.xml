@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="drill-jdbc-all-1.17.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/apache-drill-1.17.0/jars/jdbc-driver/drill-jdbc-all-1.17.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -10,20 +10,20 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Benchmark)
-@Fork(value = 2, jvmArgs = {"-Xms2G", "-Xmx2G"})
+@Warmup(iterations = 0)
+@Measurement(iterations = 2)
 public class convertJMH {
+    int i, j, k, l;
+
     private ParquetTransform drillObj;
     private ParquetTransform nativeObj;
     private String src;
-    private String drillDest;
-    private String nativeDest;
 
     public static void main(String[] args) throws RunnerException {
 
@@ -36,21 +36,49 @@ public class convertJMH {
     }
 
     @Setup
-    public void setup() {
-        src = "/home/phvle/sample2.csv";
-        drillDest = "/home/phvle/drill_convert.parquet";
-        nativeDest = "/home/phvle/native_convert.parquet";
-        nativeObj = new NativeTransform(src, nativeDest);
-        drillObj = new DrillTransform(src, drillDest);
+    public void setup() throws SQLException, ClassNotFoundException {
+        src = "/home/phvle/file_to_convert.csv";
+        nativeObj = new NativeTransform();
+        drillObj = new DrillTransform(src, "localhost", "drillbit");
+        i = 0;
+        j = 0;
+        k = 0;
+        l = 0;
     }
 
     @Benchmark
-    public void nativeConvert(Blackhole bh) {
-        nativeObj.convertToCSV();
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    public void testNativeOne() {
+        nativeConvert(src, "/home/phvle/temp/native_convert_1_" + i++ + ".parquet");
     }
 
     @Benchmark
-    public void drillConvert(Blackhole bh) {
-        drillObj.convertToCSV();
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    public void testDrillOne() throws SQLException {
+        drillConvert("table_1" + j++, src);
+    }
+
+//    @Benchmark
+//    @BenchmarkMode(Mode.All)
+//    @OutputTimeUnit(TimeUnit.SECONDS)
+//    public void testNativeTwo() {
+//        nativeConvert(src, "/home/phvle/temp/native_convert_2_" + i++ + ".parquet");
+//    }
+//
+//    @Benchmark
+//    @BenchmarkMode(Mode.All)
+//    @OutputTimeUnit(TimeUnit.SECONDS)
+//    public void testDrillTwo() throws SQLException {
+//        drillConvert("table_2" + j++, src);
+//    }
+
+    public void nativeConvert(String src, String dest) {
+        nativeObj.convertToParquet(src, dest);
+    }
+
+    public void drillConvert(String tableName, String src) throws SQLException {
+        drillObj.convertToParquet(tableName, new String[] {"permalink", "company", "numEmps", "category", "city", "state", "fundedDate", "raisedAmt", "raisedCurrency", "round"}, 10, src);
     }
 }
