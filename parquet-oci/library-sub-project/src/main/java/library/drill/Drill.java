@@ -35,12 +35,8 @@ public class Drill {
 
     public Drill newTable(String name, String title[], int len, String src) throws SQLException {
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
-        for (int i = 0; i < len; i++) {
-            if(i != len-1)
-                sql += String.format("columns[%d] as `%s`, ", i, title[i]);
-            else
-                sql += String.format("columns[%d] as `%s` ", i, title[i]);
-        }
+        for (int i = 0; i < len; i++)
+            sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", i, title[i]);
         sql += String.format("from dfs.`%s`", src);
         System.out.println(sql);
         ResultSet rs = this.st.executeQuery(sql);
