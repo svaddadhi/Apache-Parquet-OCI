@@ -24,6 +24,6 @@ public class DrillConvert {
         while(rs.next()){
             System.out.println("Name: " + rs.getString(2));
         }*/
-        Drill d = new Drill("localhost", "drillbit").connect().extExecutor().newTable("phuTable1", new String[] {"permalink", "company"}, 2, "/home/phvle/file_to_convert.csv");
+        Drill d = new Drill("localhost", "drillbit").connect().extExecutor().filter("phuTable", new String[] {"N_NATIONKEY", "N_NAME"}, 2, "/home/phvle/nation.parquet");
     }
 }

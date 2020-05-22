@@ -21,7 +21,6 @@ plugins {
 
 group = 'helidon.oci.library'
 version = '1.0-SNAPSHOT'
-
 sourceCompatibility = 11
 targetCompatibility = 11
 tasks.withType(JavaCompile) {
@@ -29,7 +28,7 @@ tasks.withType(JavaCompile) {
 }
 
 ext {
-    helidonversion ='2.0.0-M1'
+    helidonversion ='2.0.0-SNAPSHOT'
 }
 
 repositories {
@@ -38,6 +37,8 @@ repositories {
 }
 
 dependencies {
+    compile files('build/libs/drill-jdbc-all-1.17.0.jar')
+
     /** Testing **/
     testImplementation (
         'junit:junit:4.12',
@@ -54,12 +55,19 @@ dependencies {
     /** Helidon **/
     // https://mvnrepository.com/artifact/io.helidon/helidon-dependencies
     compile group: 'io.helidon', name: 'helidon-dependencies', version: '2.0.0-M1', ext: 'pom'
-    compile 'io.helidon.microprofile.server:helidon-microprofile-server:2.0.0-M1'
-    compile 'io.helidon.common:helidon-common:2.0.0-M1'
+
+    // https://mvnrepository.com/artifact/io.helidon.microprofile.server/helidon-microprofile-server
+    compile group: 'io.helidon.microprofile.server', name: 'helidon-microprofile-server', version: '2.0.0-M3'
+
+    // https://mvnrepository.com/artifact/io.helidon.common/helidon-common
+    compile group: 'io.helidon.common', name: 'helidon-common', version: '2.0.0-M3'
+
 
     /** Javax **/
     compile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
     compile 'javax.json:javax.json-api:1.1.4'
+
+    testCompileOnly 'org.junit.jupiter:junit-jupiter-api'
 }
 
 // define a custom task to copy all dependencies in the runtime classpath
@@ -101,6 +109,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-//mainClassName = 'helidon.oci.library.Main'
+mainClassName = 'helidon.oci.library.Main'
 
 

@@ -33,10 +33,21 @@ public class Drill {
         return this;
     }
 
-    public Drill newTable(String name, String title[], int len, String src) throws SQLException {
+    public Drill convert(String name, String title[], int len, String src) throws SQLException {
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
         for (int i = 0; i < len; i++)
             sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", i, title[i]);
+        sql += String.format("from dfs.`%s`", src);
+        System.out.println(sql);
+        ResultSet rs = this.st.executeQuery(sql);
+        while (rs.next()) System.out.println(rs.getString(1));
+        return this;
+    }
+
+    public Drill filter(String name, String title[], int len, String src) throws SQLException {
+        String sql = String.format("create table dfs.tmp.`%s` as select ", name);
+        for (int i = 0; i < len; i++)
+            sql += String.format("%s `%s` ", i == 0 ? "" : ",", title[i]);
         sql += String.format("from dfs.`%s`", src);
         System.out.println(sql);
         ResultSet rs = this.st.executeQuery(sql);

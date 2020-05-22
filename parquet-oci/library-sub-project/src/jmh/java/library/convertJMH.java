@@ -37,7 +37,7 @@ public class convertJMH {
 
     @Setup
     public void setup() throws SQLException, ClassNotFoundException {
-        src = "/home/phvle/file_to_convert.csv";
+        src = "/home/phvle/data.csv";
         nativeObj = new NativeTransform();
         drillObj = new DrillTransform(src, "localhost", "drillbit");
         i = 0;
@@ -79,6 +79,6 @@ public class convertJMH {
     }
 
     public void drillConvert(String tableName, String src) throws SQLException {
-        drillObj.convertToParquet(tableName, new String[] {"permalink", "company", "numEmps", "category", "city", "state", "fundedDate", "raisedAmt", "raisedCurrency", "round"}, 10, src);
+        drillObj.convertToParquet(tableName, new String[] {"Activity Period", "Operating Airline", "Operating Airline IATA Code", "Published Airline", "Published Airline IATA Code", "GEO Summary", "GEO Region", "Activity Type Code", "Price Category Code", "Terminal", "Boarding Area", "Passenger Count"}, 12, src);
     }
 }

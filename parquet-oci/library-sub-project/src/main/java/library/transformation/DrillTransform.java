@@ -23,7 +23,7 @@ public class DrillTransform implements ParquetTransform {
 
     @Override
     public void filterByColumns(String tableName, String[] columns, int len, String src) throws SQLException {
-        obj.newTable(tableName, columns, len, src);
+        obj.filter(tableName, columns, len, src);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class DrillTransform implements ParquetTransform {
 
     @Override
     public void convertToParquet(String tableName, String[] columns, int len, String src) throws SQLException {
-        obj.newTable(tableName, columns, len, src);
+        obj.convert(tableName, columns, len, src);
     }
 
     @Override
