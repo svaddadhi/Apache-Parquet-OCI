@@ -102,6 +102,20 @@ public class Drill {
     }
 
     public Drill filterRow(String table, String colName[], String val[], String tar) throws SQLException, IOException {
+
+        /**
+         * This function will perform filter on parquet database, and generate a csv file for user
+         * which meets their expectation. Considering the executive machine does not have to be the
+         * database server, we do not provide the automatic write back into the parquet database as
+         * a brand new table.
+         *
+         * @param   table   The parquet target which we want to perform the filter
+         * @param   colName The name of columns user want to apply the filter rule
+         * @param   val     Expected value for each specified column
+         * @param   tar     Target file location for the outputing csv file.
+         * @ret     Drill   This function returns the object itself.
+         */
+
         if (colName.length != val.length) abort("Row filter property not match");
         if (colName.length <= 0) return this.pull(table, tar);
         ResultSet rs = this.read(table);
