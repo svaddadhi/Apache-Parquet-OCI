@@ -17,7 +17,6 @@ import static library.service.util.abort;
 
 public class Drill {
     final private String host, protocol;
-    private String base, scheme;
     private Connection conn;
     private Statement st;
 
@@ -34,6 +33,14 @@ public class Drill {
         this.protocol = prot;
     }
 
+    public Drill close() throws SQLException {
+        this.st.close();
+        this.conn.close();
+        this.st = null;
+        this.conn = null;
+        return this;
+    }
+
     public Drill connect() throws ClassNotFoundException, SQLException {
         Class.forName("org.apache.drill.jdbc.Driver");
         this.conn = DriverManager.getConnection("jdbc:drill:" + this.protocol + "=" + this.host);
@@ -45,20 +52,12 @@ public class Drill {
         return this;
     }
 
-    public Drill setConnProp(String base, String scheme) {
-        this.base = base;
-        this.scheme = scheme;
-        return this;
-    }
-
     public Drill convert(String name, String title[], int len, AddUtil au) throws SQLException {
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
         for (int i = 0; i < len; i++)
             sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", i, title[i]);
         sql += String.format("from dfs.`%s`", au.getAdd());
-        System.out.println(sql);
-        ResultSet rs = this.st.executeQuery(sql);
-        while (rs.next()) System.out.println(rs.getString(1));
+        this.st.executeQuery(sql);
         return this;
     }
 
@@ -72,9 +71,7 @@ public class Drill {
         for (int i = 0; i < len; i++)
             sql += String.format("%s `%s` ", i == 0 ? "" : ",", title[i]);
         sql += String.format("from dfs.`%s`", src);
-        System.out.println(sql);
-        ResultSet rs = this.st.executeQuery(sql);
-        while (rs.next()) System.out.println(rs.getString(1));
+        this.st.executeQuery(sql);
         return this;
     }
 
@@ -101,7 +98,7 @@ public class Drill {
         return this;
     }
 
-    public Drill filterRow(String table, String colName[], String val[], String tar) throws SQLException, IOException {
+    public Drill pull(String table, String colName[], String val[], String tar) throws SQLException, IOException {
 
         /**
          * This function will perform filter on parquet database, and generate a csv file for user
@@ -147,10 +144,8 @@ public class Drill {
             String cont[] = new String[len];
             for (int i = 0; i < len; i++) cont[i] = rs.getString(i + 1);
             boolean flag = true;
-            for (int i = 0; flag && i < len; i++) {
-                System.out.print(String.format("%b, %b\n", (checkList[i] == -1), (checkList[i] != -1 && cont[i].equals(val[checkList[i]]))));
+            for (int i = 0; flag && i < len; i++)
                 flag = (checkList[i] == -1) || (checkList[i] != -1 && cont[i].equals(val[checkList[i]]));
-            }
             if (flag) csvCont.add(cont);
         }
         writer.writeAll(csvCont);

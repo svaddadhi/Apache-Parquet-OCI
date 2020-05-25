@@ -11,7 +11,7 @@ import java.math.*;
 
 public class DrillConvert {
 
-    public static void main( String[] args ) throws SQLException, ClassNotFoundException, IOException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
 
         /*// load the JDBC driver
         Class.forName("org.apache.drill.jdbc.Driver");
@@ -59,10 +59,19 @@ public class DrillConvert {
          * data copy must be definitely identical. Otherwise an
          * error may occur, and the program may be crashed.
          */
-        Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor();
-        // d.convert("testTable", new String[] {"PolicyID"}, 1, new AddUtil("/home/drill/FL_insurance_sample.csv"));
-        // d.convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"));
-        // d.pull("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv");
-        // d.filterRow("testTable", new String[]{"Region", "Order Priority"}, new String[]{"Europe", "L"},  System.getProperty("user.home") + File.separator + "stdcsv100_rf0.csv");
+
+        /**
+         * The below six lines of codes are example of Drill instance initialization, conditional
+         * drill conversion from csv to Apache Parquet, unconditional drill table conversion to
+         * Parquet, unconditional Parquet to CSV converter, Parquet to CSV converter with row
+         * filtering operations, and closing Drill instance.
+         */
+
+        Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor()
+                .convert("testTable_std_col", new String[]{"Region", "Country", "Total Profit"}, 3, new AddUtil("/home/drill/stdcsv100.csv"))
+                .convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"))
+                .pull("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv")
+                .pull("testTable", new String[]{"Region", "Order Priority"}, new String[]{"Europe", "L"}, System.getProperty("user.home") + File.separator + "stdcsv100_rf0.csv")
+                .close();
     }
 }
