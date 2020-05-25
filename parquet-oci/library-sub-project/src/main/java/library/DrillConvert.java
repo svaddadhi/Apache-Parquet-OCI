@@ -1,6 +1,7 @@
 package library;
 
 import library.drill.Drill;
+import library.service.AddUtil;
 
 import java.sql.*;
 import java.lang.*;
@@ -24,6 +25,40 @@ public class DrillConvert {
         while(rs.next()){
             System.out.println("Name: " + rs.getString(2));
         }*/
-        Drill d = new Drill("localhost", "drillbit").connect().extExecutor().filter("phuTable", new String[] {"N_NATIONKEY", "N_NAME"}, 2, "/home/phvle/nation.parquet");
+        /**
+         * The second parameter required for the FULL table conversion
+         * and the last parameter required for the partial conversion
+         * are the file address utility object. When using partial
+         * conversion, use AddUtil::new(char * fn), where fn is the
+         * character pointer, a.k.a. string, for the file name. If
+         * AddUtil::new(char * efn, char * dfn) is called in partial
+         * conversion function, the efn will be recorded but will not
+         * be ever used. For the unconditional conversion, use
+         * AddUtil::new(char * fn) if the csv file address on the
+         * execution server is exactly identical with the one on the
+         * data server. Otherwise, use
+         * AddUtil::new(char * efn, char * dfn) for full conversion.
+         * efn is to specify the csv copy address on the execution
+         * machine, and dfn is to specify the file address resides on
+         * the data server.
+         *
+         * Here is the calling prototype:
+         *
+         * For conditional table creation, use:
+         * Drill::convert(char *, char **, unsigned int, AddUtil::new(char *));
+         *
+         * For unconditional identical-address-conversion, use:
+         * Drill::convert(char *, AddUtil::new(char *));
+         *
+         * For unconditional general address table creation, use:
+         * Drill::convert(char *, AddUtil::new(char *, char *));
+         *
+         * Attention: The first line of the executive copy and the
+         * data copy must be definitely identical. Otherwise an
+         * error may occur, and the program may be crashed.
+         */
+        Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor();
+        //d.convert("testTable", new String[] {"PolicyID"}, 1, new AddUtil("/home/drill/FL_insurance_sample.csv"));
+        d.convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"));
     }
 }
