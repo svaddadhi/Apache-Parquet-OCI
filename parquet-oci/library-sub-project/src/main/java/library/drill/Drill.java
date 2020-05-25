@@ -1,5 +1,7 @@
 package library.drill;
 
+import library.c2p.CSVRP;
+
 import java.sql.*;
 
 public class Drill {
@@ -36,11 +38,20 @@ public class Drill {
     public Drill newTable(String name, String title[], int len, String src) throws SQLException {
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
         for (int i = 0; i < len; i++)
-            sql += String.format("columns[%d] as `%s` ", i, title[i]);
+            sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", i, title[i]);
         sql += String.format("from dfs.`%s`", src);
         System.out.println(sql);
         ResultSet rs = this.st.executeQuery(sql);
         while (rs.next()) System.out.println(rs.getString(1));
         return this;
     }
+
+    public Drill newTable(String name, String src) {
+        CSVRP csv = new CSVRP(src).open();
+        String title[] = csv.readNext();
+        for (int i = 0; i < title.length; i++) System.out.print(String.format(i == 0 ? "%s" : ", %s", title[i]));
+        System.out.print(String.format("\n"));
+        return this;
+    }
+
 }
