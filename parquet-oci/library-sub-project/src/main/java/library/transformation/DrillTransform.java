@@ -1,6 +1,7 @@
 package library.transformation;
 
 import library.drill.Drill;
+import library.service.AddUtil;
 
 import java.sql.*;
 import java.lang.*;
@@ -33,12 +34,12 @@ public class DrillTransform implements ParquetTransform {
 
     @Override
     public void convertToParquet(String tableName, String[] columns, int len, String src) throws SQLException {
-        obj.convert(tableName, columns, len, src);
+        obj.convert(tableName, columns, len, new AddUtil(src));
     }
 
     @Override
-    public void convertToParquet(String src, String dest) {
-
+    public void convertToParquet(String src, String localCopy, String dest) throws SQLException{
+        this.obj.convert(dest, new AddUtil(localCopy, src));
     }
 
     @Override
