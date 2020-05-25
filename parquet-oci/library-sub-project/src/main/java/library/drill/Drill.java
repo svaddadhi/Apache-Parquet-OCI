@@ -2,6 +2,8 @@ package library.drill;
 
 import java.sql.*;
 
+import library.service.AddUtil;
+
 public class Drill {
     final private String host, protocol;
     private String  base, scheme;
