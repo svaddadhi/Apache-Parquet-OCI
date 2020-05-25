@@ -29,8 +29,8 @@ public class DrillTransform implements ParquetTransform {
     }
 
     @Override
-    public void filterByRows() {
-
+    public void filterByRows(String table, String colName[], String val[], String tar) throws IOException, SQLException {
+        this.obj.filterRow(table, colName, val, tar);
     }
 
     @Override

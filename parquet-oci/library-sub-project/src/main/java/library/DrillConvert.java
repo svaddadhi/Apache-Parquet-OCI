@@ -11,7 +11,7 @@ import java.math.*;
 
 public class DrillConvert {
 
-    public static void main( String[] args ) throws SQLException, ClassNotFoundException{
+    public static void main( String[] args ) throws SQLException, ClassNotFoundException, IOException {
 
         /*// load the JDBC driver
         Class.forName("org.apache.drill.jdbc.Driver");
@@ -60,12 +60,9 @@ public class DrillConvert {
          * error may occur, and the program may be crashed.
          */
         Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor();
-        //d.convert("testTable", new String[] {"PolicyID"}, 1, new AddUtil("/home/drill/FL_insurance_sample.csv"));
-        //d.convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"));
-        try {
-            d.read("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // d.convert("testTable", new String[] {"PolicyID"}, 1, new AddUtil("/home/drill/FL_insurance_sample.csv"));
+        // d.convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"));
+        // d.pull("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv");
+        // d.filterRow("testTable", new String[]{"Region", "Order Priority"}, new String[]{"Europe", "L"},  System.getProperty("user.home") + File.separator + "stdcsv100_rf0.csv");
     }
 }
