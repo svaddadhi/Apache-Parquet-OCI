@@ -4,6 +4,7 @@ import library.drill.Drill;
 import library.service.AddUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.lang.*;
 import java.math.*;
@@ -60,6 +61,11 @@ public class DrillConvert {
          */
         Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor();
         //d.convert("testTable", new String[] {"PolicyID"}, 1, new AddUtil("/home/drill/FL_insurance_sample.csv"));
-        d.convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"));
+        //d.convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"));
+        try {
+            d.read("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

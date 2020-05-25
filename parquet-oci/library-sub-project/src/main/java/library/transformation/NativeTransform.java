@@ -23,7 +23,7 @@ public class NativeTransform implements ParquetTransform {
     }
 
     @Override
-    public void convertToParquet(String src, String dest) {
+    public void convertToParquet(String src, String sth, String dest) {
         new Conv2Par(src, dest).init().conv().close();
     }
 

@@ -10,7 +10,7 @@ public class ConvertObject {
     /* Constructor for converting CSV -> Parquet */
     public ConvertObject(String src, String tar) throws SQLException, ClassNotFoundException {
         ParquetTransform obj = new NativeTransform();
-        obj.convertToParquet(src, tar);
+        //obj.convertToParquet(src, tar);
     }
 
     /* Constructor for converting Parquet -> CSV */

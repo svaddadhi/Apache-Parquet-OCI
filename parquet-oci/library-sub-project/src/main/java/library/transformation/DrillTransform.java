@@ -3,6 +3,7 @@ package library.transformation;
 import library.drill.Drill;
 import library.service.AddUtil;
 
+import java.io.IOException;
 import java.sql.*;
 import java.lang.*;
 
@@ -43,5 +44,13 @@ public class DrillTransform implements ParquetTransform {
     }
 
     @Override
-    public void convertToCSV(String src, String dest, int len){};
+    public void convertToCSV(String src, String dest, int len){
+        try {
+            this.obj.pull(src, dest);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

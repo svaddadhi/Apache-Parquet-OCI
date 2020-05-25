@@ -1,9 +1,16 @@
 package library.drill;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.opencsv.CSVWriter;
 import library.c2p.CSVRP;
 import library.service.AddUtil;
+import org.apache.avro.generic.GenericData;
 
 public class Drill {
     final private String host, protocol;
@@ -60,6 +67,20 @@ public class Drill {
         System.out.println(sql);
         ResultSet rs = this.st.executeQuery(sql);
         while (rs.next()) System.out.println(rs.getString(1));
+        return this;
+    }
+
+    public Drill pull(String src, String tar) throws SQLException, IOException {
+        CSVWriter writer = new CSVWriter(new FileWriter(new File(tar)));
+        List<String[]> csvCont = new ArrayList<String[]>();
+        ResultSet rs = this.st.executeQuery(String.format("select * from dfs.tmp.`%s`", src));
+        while (rs.next()) {
+            int len = rs.getMetaData().getColumnCount();
+            String data[] = new String [len];
+            for (int i = 0; i < len; i++) data[i] = rs.getString(i + 1);
+            csvCont.add(data);
+        } writer.writeAll(csvCont);
+        writer.close();
         return this;
     }
 }
