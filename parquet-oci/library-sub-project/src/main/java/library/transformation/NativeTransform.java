@@ -34,5 +34,9 @@ public class NativeTransform implements ParquetTransform {
     }
 
     @Override
-    public void convertToCSV(String src, String dest, int len){ new Conv2Csv(src, dest, len).init().conv().close(); };
+    public void convertToCSV(String src, String dest, int len) {
+        new Conv2Csv(src, dest, len).init().conv().close();
+    }
+
+    ;
 }
