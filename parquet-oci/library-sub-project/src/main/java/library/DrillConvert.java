@@ -11,7 +11,7 @@ import java.math.*;
 
 public class DrillConvert {
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, InterruptedException {
 
         /*// load the JDBC driver
         Class.forName("org.apache.drill.jdbc.Driver");

@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.opencsv.CSVWriter;
 import library.c2p.CSVRP;
+import library.drill.service.S3Transformation;
 import library.service.AddUtil;
 import library.service.util;
 import org.apache.avro.generic.GenericData;
@@ -17,6 +18,7 @@ import static library.service.util.abort;
 
 public class Drill {
     final private String host, protocol;
+    final private String s3bucketMountingPoint = "s3bucket/drill";
     private Connection conn;
     private Statement st;
 
@@ -98,7 +100,7 @@ public class Drill {
         return this;
     }
 
-    public Drill pull(String table, String colName[], String val[], String tar) throws SQLException, IOException {
+    public Drill pull(String table, String colName[], String val[], String tar) throws SQLException, IOException, InterruptedException {
 
         /**
          * This function will perform filter on parquet database, and generate a csv file for user
@@ -150,6 +152,8 @@ public class Drill {
         }
         writer.writeAll(csvCont);
         writer.close();
+        S3Transformation s3 = new S3Transformation(String.format("%s%s%s", System.getProperty("user.home"), File.separator, s3bucketMountingPoint), "/home/drill/s3bucket/drill", table + "_RS");
+        if (!s3.execute(tar)) abort("Failed to copy file");
         return this;
     }
 }

@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 20)
 public class convertJMH {
     int i, j, k, l;
-    static final String testFile = "stdcsv100.csv";
+    static final String testFile = "stdcsv1500k.csv";
 
     private ParquetTransform drillObj;
     private ParquetTransform nativeObj;
