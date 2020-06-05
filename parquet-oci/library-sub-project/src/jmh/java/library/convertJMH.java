@@ -10,16 +10,18 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
-@Warmup(iterations = 1)
-@Measurement(iterations = 2)
+@Warmup(iterations = 10)
+@Measurement(iterations = 20)
 public class convertJMH {
     int i, j, k, l;
+    static final String testFile = "stdcsv1500k.csv";
 
     private ParquetTransform drillObj;
     private ParquetTransform nativeObj;
@@ -37,9 +39,9 @@ public class convertJMH {
 
     @Setup
     public void setup() throws SQLException, ClassNotFoundException {
-        //src = "/home/phvle/data.csv";
-        src = "/home/phvle/reddit_data.csv";
-        drillObj = new DrillTransform(src, "localhost", "drillbit");
+        src = System.getProperty("user.home") + File.separator + testFile;
+        nativeObj = new NativeTransform();
+        drillObj = new DrillTransform(src, "drill.yg-home.site", "drillbit");
         i = 0;
         j = 0;
         k = 0;
@@ -49,8 +51,8 @@ public class convertJMH {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void testNativeOne() {
-        nativeConvert(src, "/home/phvle/temp/native_convert_1_" + i + ".parquet");
+    public void testNativeOne() throws SQLException {
+        nativeConvert(src, System.getProperty("user.home") + File.separator + "parquetTest" + File.separator + "test" + i++ + ".parquet");
     }
 
     @Benchmark
@@ -74,12 +76,11 @@ public class convertJMH {
 //        drillConvert("table_2" + j++, src);
 //    }
 
-    public void nativeConvert(String src, String dest) {
-        nativeObj.convertToParquet(src, dest);
+    public void nativeConvert(String src, String dest) throws SQLException {
+        nativeObj.convertToParquet(src, null, dest);
     }
 
     public void drillConvert(String tableName, String src) throws SQLException {
-        //drillObj.convertToParquet(tableName, new String[] {"Activity Period", "Operating Airline", "Operating Airline IATA Code", "Published Airline", "Published Airline IATA Code", "GEO Summary", "GEO Region", "Activity Type Code", "Price Category Code", "Terminal", "Boarding Area", "Passenger Count"}, 12, src);
-        drillObj.convertToParquet(tableName, new String[] {"id","title","score","author","author_flair_text","removed_by","total_awards_received","awarders","created_utc","full_link","num_comments","over_18"},12,src);
+        drillObj.convertToParquet("/home/drill/"+ testFile, src, tableName);
     }
 }
