@@ -54,7 +54,8 @@ public class Drill {
         return this;
     }
 
-    public Drill convert(String name, String title[], int colNum[], int len, AddUtil au) throws SQLException {
+    public Drill convert(String name, String title[], int colNum[], int len, AddUtil au) throws SQLException, IOException {
+        CSVRP csv = new CSVRP("/home/tongxuan/FL_insurance_sample.csv").open().standardize("/home/tongxuan/FL_insurance_sample_std.csv");
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
         for (int i = 0; i < len; i++)
             sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", colNum[i], title[i]);
@@ -64,7 +65,7 @@ public class Drill {
         return this;
     }
 
-    public Drill convert(String name, AddUtil au) throws SQLException {
+    public Drill convert(String name, AddUtil au) throws SQLException, IOException {
         String title[] = new CSVRP(au.getSvc()).open().readNext();
         int colNum[] = new int[title.length];
         for (int i = 0; i < title.length; i++) colNum[i] = i;

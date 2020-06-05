@@ -34,12 +34,12 @@ public class DrillTransform implements ParquetTransform {
     }
 
     @Override
-    public void convertToParquet(String tableName, String[] columns, int[] colNum, int len, String src) throws SQLException {
+    public void convertToParquet(String tableName, String[] columns, int[] colNum, int len, String src) throws SQLException, IOException {
         obj.convert(tableName, columns, colNum, len, new AddUtil(src));
     }
 
     @Override
-    public void convertToParquet(String src, String localCopy, String dest) throws SQLException{
+    public void convertToParquet(String src, String localCopy, String dest) throws SQLException, IOException {
         this.obj.convert(dest, new AddUtil(localCopy, src));
     }
 
