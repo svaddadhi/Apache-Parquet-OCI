@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
-@Warmup(iterations = 0)
+@Warmup(iterations = 1)
 @Measurement(iterations = 2)
 public class convertJMH {
     int i, j, k, l;
@@ -37,8 +37,8 @@ public class convertJMH {
 
     @Setup
     public void setup() throws SQLException, ClassNotFoundException {
-        src = "/home/phvle/data.csv";
-        nativeObj = new NativeTransform();
+        //src = "/home/phvle/data.csv";
+        src = "/home/phvle/reddit_data.csv";
         drillObj = new DrillTransform(src, "localhost", "drillbit");
         i = 0;
         j = 0;
@@ -50,7 +50,7 @@ public class convertJMH {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void testNativeOne() {
-        nativeConvert(src, "/home/phvle/temp/native_convert_1_" + i++ + ".parquet");
+        nativeConvert(src, "/home/phvle/temp/native_convert_1_" + i + ".parquet");
     }
 
     @Benchmark
@@ -79,6 +79,7 @@ public class convertJMH {
     }
 
     public void drillConvert(String tableName, String src) throws SQLException {
-        drillObj.convertToParquet(tableName, new String[] {"Activity Period", "Operating Airline", "Operating Airline IATA Code", "Published Airline", "Published Airline IATA Code", "GEO Summary", "GEO Region", "Activity Type Code", "Price Category Code", "Terminal", "Boarding Area", "Passenger Count"}, 12, src);
+        //drillObj.convertToParquet(tableName, new String[] {"Activity Period", "Operating Airline", "Operating Airline IATA Code", "Published Airline", "Published Airline IATA Code", "GEO Summary", "GEO Region", "Activity Type Code", "Price Category Code", "Terminal", "Boarding Area", "Passenger Count"}, 12, src);
+        drillObj.convertToParquet(tableName, new String[] {"id","title","score","author","author_flair_text","removed_by","total_awards_received","awarders","created_utc","full_link","num_comments","over_18"},12,src);
     }
 }

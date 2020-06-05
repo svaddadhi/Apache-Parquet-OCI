@@ -10,8 +10,6 @@ buildscript {
     }
 }
 
-//apply plugin: "me.champeau.gradle.jmh"
-
 plugins {
     id 'java'
     id 'application'
@@ -35,6 +33,25 @@ repositories {
     mavenCentral()
     mavenLocal()
 }
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+// task to run the class file
+task runApp(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'helidon.oci.library.Main'
+}
+
+// task to run the jar file
+task runJar(type: JavaExec) {
+    classpath = files(tasks.jar)
+    main = 'helidon.oci.library.Main'
+}
+
+
+mainClassName = 'helidon.oci.library.Main'
 
 dependencies {
     compile files('build/libs/drill-jdbc-all-1.17.0.jar')
@@ -92,23 +109,5 @@ jar {
         )
     }
 }
-
-// task to run the class file
-task runApp(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    main = 'helidon.oci.library.Main'
-}
-
-// task to run the jar file
-task runJar(type: JavaExec) {
-    classpath = files(tasks.jar)
-    main = 'helidon.oci.library.Main'
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-mainClassName = 'helidon.oci.library.Main'
 
 
