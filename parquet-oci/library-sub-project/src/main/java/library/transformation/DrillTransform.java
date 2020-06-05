@@ -34,8 +34,8 @@ public class DrillTransform implements ParquetTransform {
     }
 
     @Override
-    public void convertToParquet(String tableName, String[] columns, int len, String src) throws SQLException {
-        obj.convert(tableName, columns, len, new AddUtil(src));
+    public void convertToParquet(String tableName, String[] columns, int[] colNum, int len, String src) throws SQLException {
+        obj.convert(tableName, columns, colNum, len, new AddUtil(src));
     }
 
     @Override

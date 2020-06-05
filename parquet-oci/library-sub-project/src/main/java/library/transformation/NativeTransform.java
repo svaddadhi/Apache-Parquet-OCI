@@ -19,7 +19,7 @@ public class NativeTransform implements ParquetTransform {
     }
 
     @Override
-    public void convertToParquet(String tableName, String[] columns, int len, String src) throws SQLException {
+    public void convertToParquet(String tableName, String[] columns, int[] colNum, int len, String src) throws SQLException {
 
     }
 

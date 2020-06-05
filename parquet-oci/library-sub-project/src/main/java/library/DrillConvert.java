@@ -68,10 +68,10 @@ public class DrillConvert {
          */
 
         Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor()
-                .convert("testTable_std_col", new String[]{"Region", "Country", "Total Profit"}, 3, new AddUtil("/home/drill/stdcsv100.csv"))
+                .convert("testTable_std_col", new String[]{"policyID", "county", "fl_site_limit"}, new int[] {0, 2, 6}, 3, new AddUtil("/home/drill/FL_insurance_sample.csv"))
                 .convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"))
-                .pull("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv")
-                .pull("testTable", new String[]{"Region", "Order Priority"}, new String[]{"Europe", "L"}, System.getProperty("user.home") + File.separator + "stdcsv100_rf0.csv")
+                //.pull("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv")
+                //.pull("testTable", new String[]{"Region", "Order Priority"}, new String[]{"Europe", "L"}, System.getProperty("user.home") + File.separator + "stdcsv100_rf0.csv")
                 .close();
     }
 }

@@ -54,18 +54,21 @@ public class Drill {
         return this;
     }
 
-    public Drill convert(String name, String title[], int len, AddUtil au) throws SQLException {
+    public Drill convert(String name, String title[], int colNum[], int len, AddUtil au) throws SQLException {
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
         for (int i = 0; i < len; i++)
-            sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", i, title[i]);
+            sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", colNum[i], title[i]);
         sql += String.format("from dfs.`%s`", au.getAdd());
+        System.out.println(sql);
         this.st.executeQuery(sql);
         return this;
     }
 
     public Drill convert(String name, AddUtil au) throws SQLException {
         String title[] = new CSVRP(au.getSvc()).open().readNext();
-        return this.convert(name, title, title.length, au);
+        int colNum[] = new int[title.length];
+        for (int i = 0; i < title.length; i++) colNum[i] = i;
+        return this.convert(name, title, colNum, title.length, au);
     }
 
     public Drill filter(String name, String title[], int len, String src) throws SQLException {
