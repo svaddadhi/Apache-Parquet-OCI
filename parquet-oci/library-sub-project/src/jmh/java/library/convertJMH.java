@@ -11,6 +11,7 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,14 +52,14 @@ public class convertJMH {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void testNativeOne() throws SQLException {
+    public void testNativeOne() throws SQLException, IOException {
         nativeConvert(src, System.getProperty("user.home") + File.separator + "parquetTest" + File.separator + "test" + i++ + ".parquet");
     }
 
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
-    public void testDrillOne() throws SQLException {
+    public void testDrillOne() throws SQLException, IOException {
         drillConvert("table_1" + j++, src);
     }
 
@@ -76,11 +77,11 @@ public class convertJMH {
 //        drillConvert("table_2" + j++, src);
 //    }
 
-    public void nativeConvert(String src, String dest) throws SQLException {
+    public void nativeConvert(String src, String dest) throws SQLException, IOException {
         nativeObj.convertToParquet(src, null, dest);
     }
 
-    public void drillConvert(String tableName, String src) throws SQLException {
+    public void drillConvert(String tableName, String src) throws SQLException, IOException {
         drillObj.convertToParquet("/home/drill/"+ testFile, src, tableName);
     }
 }

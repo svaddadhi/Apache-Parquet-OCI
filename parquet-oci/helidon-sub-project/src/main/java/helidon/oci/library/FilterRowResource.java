@@ -19,7 +19,6 @@ import java.sql.SQLException;
 public class FilterRowResource {
     /***
      * Filters certain rows out of a Parquet file into another Parquet file
-     * Target Parquet file can be found in /tmp/{tableName}
      * @param jsonObject
      * @return
      */
