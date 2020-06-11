@@ -1,7 +1,7 @@
 package helidon.oci.library;
 
-import library.FilterObject;
-import net.minidev.json.JSONArray;
+import library.FilterColObject;
+import library.FilterRowObject;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.JsonArray;
@@ -14,11 +14,11 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@Path("/filter")
+@Path("/filter/row")
 @RequestScoped
-public class FilterResource {
+public class FilterRowResource {
     /***
-     * Filters certain columns out of a Parquet file into another Parquet file
+     * Filters certain rows out of a Parquet file into another Parquet file
      * Target Parquet file can be found in /tmp/{tableName}
      * @param jsonObject
      * @return
@@ -29,6 +29,13 @@ public class FilterResource {
         String src = jsonObject.getString("filePath");
         JsonArray col_data = jsonObject.getJsonArray("columns");
         String tableName = jsonObject.getString("tableName");
+        JsonArray val_data = jsonObject.getJsonArray("vals");
+        String tar = jsonObject.getString("tar");
+
+        String[] vals = new String[val_data.size()];
+        for(int i = 0; i < val_data.size(); i++) {
+            vals[i] = val_data.getString(i);
+        }
 
         String[] columns = new String[col_data.size()];
         for(int i = 0; i < col_data.size(); i++) {
@@ -36,12 +43,14 @@ public class FilterResource {
         }
 
         try {
-            FilterObject object = new FilterObject(src, columns, tableName);
+            FilterRowObject object = new FilterRowObject(src, columns, vals, tableName, tar);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

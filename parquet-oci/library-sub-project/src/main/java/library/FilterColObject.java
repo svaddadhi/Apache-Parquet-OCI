@@ -7,7 +7,7 @@ import library.transformation.ParquetTransform;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class FilterObject {
+public class FilterColObject {
     /***
      * Filters a Parquet file
      * @param src
@@ -16,7 +16,7 @@ public class FilterObject {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public FilterObject(String src, String[] columns, String tableName) throws SQLException, ClassNotFoundException, IOException {
+    public FilterColObject(String src, String[] columns, String tableName) throws SQLException, ClassNotFoundException, IOException {
         GetPropertyValues propertyObj = new GetPropertyValues();
         ParquetTransform object = new DrillTransform(src, propertyObj.getPropValue("host"), propertyObj.getPropValue("clusterId"));
         object.filterByColumns(tableName,columns, columns.length, src);

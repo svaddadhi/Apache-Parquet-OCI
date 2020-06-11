@@ -3,6 +3,7 @@ package library;
 import library.transformation.NativeTransform;
 import library.transformation.ParquetTransform;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ConvertObject {
@@ -14,7 +15,7 @@ public class ConvertObject {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public ConvertObject(String src, String tar) throws SQLException, ClassNotFoundException {
+    public ConvertObject(String src, String tar) throws SQLException, ClassNotFoundException, IOException {
         ParquetTransform obj = new NativeTransform();
         obj.convertToParquet(src, null, tar);
     }
