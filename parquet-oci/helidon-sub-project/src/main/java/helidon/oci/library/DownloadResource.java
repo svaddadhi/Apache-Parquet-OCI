@@ -12,10 +12,14 @@ import java.util.logging.Logger;
 @Path("/download")
 @RequestScoped
 public class DownloadResource {
-    // curl -X GET http://localhost:8080/download/axovcbqne66q/sample-bucket/file_to_convert.csv
-
-    private final static Logger LOGGER = Logger.getLogger(DownloadResource.class.getName());
-
+    /***
+     * Downloads a file from OCI
+     * @param namespace
+     * @param bucket
+     * @param object
+     * @return
+     * @throws Exception
+     */
     @GET
     @Path("{namespace}/{bucket}/{object}")
     public Response downloadFile(@PathParam("namespace") String namespace,

@@ -15,9 +15,13 @@ import java.io.File;
 @Path("/convert")
 @RequestScoped
 public class ConvertResource {
-
-    // curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/file_to_convert.csv"}' http://localhost:8080/convert/file_to_convert.csv
-
+    /***
+     * Converts a CSV file to a Parquet file
+     * @param file
+     * @param json
+     * @return
+     * @throws Exception
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{file}")

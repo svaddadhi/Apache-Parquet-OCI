@@ -12,21 +12,6 @@ import java.math.*;
 public class DrillConvert {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, InterruptedException {
-
-        /*// load the JDBC driver
-        Class.forName("org.apache.drill.jdbc.Driver");
-
-        // Connect the drill using drill path
-        Connection connection = DriverManager.getConnection("jdbc:drill:drillbit=drill.yg-home.site");
-
-        // Query drill
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * from dfs.`home/phvle/file_to_convert.parquet` LIMIT 3");
-
-        // Fetch and show the result
-        while(rs.next()){
-            System.out.println("Name: " + rs.getString(2));
-        }*/
         /**
          * The second parameter required for the FULL table conversion
          * and the last parameter required for the partial conversion

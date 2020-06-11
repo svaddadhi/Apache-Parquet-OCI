@@ -11,14 +11,18 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @Path("/filter")
 @RequestScoped
 public class FilterResource {
-
-    // curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/nation.parquet", "columns" : ["N_NATIONKEY", "N_NAME"], "tableName" : "phuTable"}' http://localhost:8080/filter
-
+    /***
+     * Filters certain columns out of a Parquet file into another Parquet file
+     * Target Parquet file can be found in /tmp/{tableName}
+     * @param jsonObject
+     * @return
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response filterFile(JsonObject jsonObject) {
@@ -36,6 +40,8 @@ public class FilterResource {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

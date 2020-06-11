@@ -13,7 +13,10 @@ import javax.ws.rs.core.Application;
 @ApplicationScoped
 @ApplicationPath("/")
 public class HelidonApplication extends Application {
-
+    /***
+     * This method adds all resource files to be executed by the Helidon server
+     * @return
+     */
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> set = new HashSet<>();

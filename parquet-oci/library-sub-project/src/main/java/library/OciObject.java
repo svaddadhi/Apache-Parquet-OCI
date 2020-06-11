@@ -18,6 +18,15 @@ import java.io.InputStream;
 import java.util.Map;
 
 public class OciObject {
+    /***
+     * Downloads an OCI object
+     * @param namespaceName
+     * @param bucketName
+     * @param objectName
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
     public boolean download(String namespaceName, String bucketName, String objectName, String filePath) throws Exception {
         // get the property values
         GetPropertyValues propertyObj = new GetPropertyValues();
@@ -66,6 +75,15 @@ public class OciObject {
         return true;
     }
 
+    /***
+     * Uploads an OCI object
+     * @param namespaceName
+     * @param bucketName
+     * @param objectName
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
     public boolean upload(String namespaceName, String bucketName, String objectName, String filePath) throws Exception {
         File file = new File(filePath);
 
@@ -83,7 +101,6 @@ public class OciObject {
                 new ConfigFileAuthenticationDetailsProvider(configurationFilePath, profile);
 
         ObjectStorage client = new ObjectStorageClient(provider);
-//        String region = propertyObj.getPropValue("region");
         client.setRegion(Region.US_PHOENIX_1);
 
         // configure upload settings as desired
@@ -112,7 +129,7 @@ public class OciObject {
         // upload request and print result
         // if multi-part is used, and any part fails, the entire upload fails and will throw BmcException
         UploadManager.UploadResponse response = uploadManager.upload(uploadDetails);
-        //System.out.println(response);
+        System.out.println(response);
 
         // fetch the object just uploaded
         GetObjectResponse getResponse =

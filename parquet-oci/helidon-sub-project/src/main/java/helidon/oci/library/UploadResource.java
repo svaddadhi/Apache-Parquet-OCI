@@ -11,15 +11,21 @@ import javax.ws.rs.core.Response;
 @Path("/upload")
 @RequestScoped
 public class UploadResource {
-    // curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/file_to_convert.parquet"}' http://localhost:8080/upload/axovcbqne66q/sample-bucket/file_to_convert.parquet
-
+    /***
+     * Upload a file to OCI
+     * @param namespace
+     * @param bucket
+     * @param object
+     * @param jsonObject
+     * @return
+     * @throws Exception
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{namespace}/{bucket}/{object}")
     public Response uploadFile(@PathParam("namespace") String namespace,
                              @PathParam("bucket") String bucket,
                              @PathParam("object") String object, JsonObject jsonObject) throws Exception {
-
 
         String filePath = jsonObject.getString("filePath");
 

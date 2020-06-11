@@ -15,7 +15,7 @@ public class DrillTransform implements ParquetTransform {
     public DrillTransform(String src, String host, String prot) throws SQLException, ClassNotFoundException {
         this.src = src;
         this.dest = dest;
-        obj = new Drill(host, prot).connect().extExecutor();
+        obj = new Drill(host, prot).    connect().extExecutor();
     }
 
     @Override
