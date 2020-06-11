@@ -21,3 +21,9 @@ The file will be downloaded into your home directory
 The file will then be converted and put in your home directory
 
 `curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/../{csvFile}"}' http://localhost:8080/convert/{csvFile}`
+
+### To filter a Parquet file by columns
+
+The input file will be a Parquet file and the output file will be a filtered Parquet file (in /tmp/<tableName>)
+
+`curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/nation.parquet", "columns" : ["N_NATIONKEY", "N_NAME"], "tableName" : "phuTable"}' http://localhost:8080/filter`

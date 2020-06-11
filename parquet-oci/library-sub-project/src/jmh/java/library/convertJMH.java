@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
-@Warmup(iterations = 10)
-@Measurement(iterations = 20)
+@Warmup(iterations = 2)
+@Measurement(iterations = 2)
 public class convertJMH {
     int i, j, k, l;
-    static final String testFile = "stdcsv1500k.csv";
+    static final String testFile = "stdcsv100.csv";
 
     private ParquetTransform drillObj;
     private ParquetTransform nativeObj;

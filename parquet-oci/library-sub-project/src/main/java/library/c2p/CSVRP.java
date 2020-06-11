@@ -1,11 +1,15 @@
 package library.c2p;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import library.service.util;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CSVRP {
     private String tar;
@@ -42,5 +46,15 @@ public class CSVRP {
         } catch (IOException e) {
             util.abort("Failed to close CSV file stream");
         }
+    }
+
+    public CSVRP standardize(String tar) throws IOException {
+        CSVWriter cw = new CSVWriter(new FileWriter(new File(tar)));
+        List<String[]> csvCont = new ArrayList<>();
+        String arr[];
+        while ((arr = this.readNext()) != null) csvCont.add(arr);
+        cw.writeAll(csvCont);
+        cw.close();
+        return this;
     }
 }
