@@ -1,5 +1,9 @@
 package helidon.oci.library;
 
+/**
+ * Class file for FileNotFoundException
+ *
+ */
 public class FileNotFoundException extends RuntimeException{
     /***
      * Returns custom bad request string

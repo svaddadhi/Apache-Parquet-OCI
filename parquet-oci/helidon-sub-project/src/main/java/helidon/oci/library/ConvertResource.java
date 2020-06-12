@@ -12,6 +12,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
 
+/**
+ * A simple JAX-RS resource to convert CSV files. Examples:
+ *
+ * Convert csv file to Parquet file:
+ * curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/sample.csv"}' http://localhost:8080/convert/sample.csv
+ *
+ */
 @Path("/convert")
 @RequestScoped
 public class ConvertResource {

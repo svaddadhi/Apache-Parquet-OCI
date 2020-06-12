@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
+/***
+ * Gets property values from config.properties file
+ */
 public class GetPropertyValues {
     InputStream inputStream;
 

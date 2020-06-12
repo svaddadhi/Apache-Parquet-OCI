@@ -3,6 +3,9 @@ package library.transformation;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/***
+ * Parquet Transformations
+ */
 public interface ParquetTransform {
     void filterByColumns();
     void filterByRows(String table, String colName[], String val[], String tar) throws IOException, SQLException, InterruptedException;

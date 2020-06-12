@@ -6,9 +6,14 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.File;
-import java.util.logging.Logger;
 
-
+/**
+ * A simple JAX-RS resource to download files from OCI. Examples:
+ *
+ * Download a file:
+ * curl -X GET http://localhost:8080/download/{namespace}/{bucketName}/sample.csv
+ *
+ */
 @Path("/download")
 @RequestScoped
 public class DownloadResource {

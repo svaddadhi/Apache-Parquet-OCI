@@ -7,6 +7,9 @@ import library.transformation.ParquetTransform;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/***
+ * Object file for filtering columns
+ */
 public class FilterColObject {
     /***
      * Filters a Parquet file

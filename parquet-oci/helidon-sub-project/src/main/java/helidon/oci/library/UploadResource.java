@@ -8,6 +8,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * A simple JAX-RS resource to upload files to OCI. Examples:
+ *
+ * Upload a file:
+ * curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/sample.csv"}' http://localhost:8080/upload/{namespace}/{bucket}/sample.csv
+ *
+ */
 @Path("/upload")
 @RequestScoped
 public class UploadResource {

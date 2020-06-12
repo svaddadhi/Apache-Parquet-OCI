@@ -17,6 +17,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Map;
 
+/***
+ * Oci class file that contains upload and download logic
+ */
 public class OciObject {
     /***
      * Downloads an OCI object

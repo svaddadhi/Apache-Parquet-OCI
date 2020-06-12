@@ -16,6 +16,9 @@ import org.apache.avro.generic.GenericData;
 
 import static library.service.util.abort;
 
+/***
+ * Contains all Drill operations
+ */
 public class Drill {
     final private String host, protocol;
     final private String s3bucketMountingPoint = "s3bucket/drill";
@@ -35,6 +38,11 @@ public class Drill {
         this.protocol = prot;
     }
 
+    /***
+     * Closes the Drill connection
+     * @return
+     * @throws SQLException
+     */
     public Drill close() throws SQLException {
         this.st.close();
         this.conn.close();
@@ -43,6 +51,12 @@ public class Drill {
         return this;
     }
 
+    /***
+     * Connects the JDBC driver to the Apache Drill database instance
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public Drill connect() throws ClassNotFoundException, SQLException {
         Class.forName("org.apache.drill.jdbc.Driver");
         this.conn = DriverManager.getConnection("jdbc:drill:" + this.protocol + "=" + this.host);
@@ -72,6 +86,15 @@ public class Drill {
         return this.convert(name, title, colNum, title.length, au);
     }
 
+    /***
+     * Filters columns on a Parquet file
+     * @param name
+     * @param title
+     * @param len
+     * @param src
+     * @return
+     * @throws SQLException
+     */
     public Drill filter(String name, String title[], int len, String src) throws SQLException {
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
         for (int i = 0; i < len; i++)
@@ -104,21 +127,19 @@ public class Drill {
         return this;
     }
 
+    /**
+     * This function will perform filter on parquet database, and generate a csv file for user
+     * which meets their expectation. Considering the executive machine does not have to be the
+     * database server, we do not provide the automatic write back into the parquet database as
+     * a brand new table.
+     *
+     * @param   table   The parquet target which we want to perform the filter
+     * @param   colName The name of columns user want to apply the filter rule
+     * @param   val     Expected value for each specified column
+     * @param   tar     Target file location for the outputing csv file.
+     * @ret     Drill   This function returns the object itself.
+     */
     public Drill pull(String table, String colName[], String val[], String tar) throws SQLException, IOException, InterruptedException {
-
-        /**
-         * This function will perform filter on parquet database, and generate a csv file for user
-         * which meets their expectation. Considering the executive machine does not have to be the
-         * database server, we do not provide the automatic write back into the parquet database as
-         * a brand new table.
-         *
-         * @param   table   The parquet target which we want to perform the filter
-         * @param   colName The name of columns user want to apply the filter rule
-         * @param   val     Expected value for each specified column
-         * @param   tar     Target file location for the outputing csv file.
-         * @ret     Drill   This function returns the object itself.
-         */
-
         if (colName.length != val.length) abort("Row filter property not match");
         if (colName.length <= 0) return this.pull(table, tar);
         ResultSet rs = this.read(table);

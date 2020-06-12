@@ -6,6 +6,10 @@ import javax.ws.rs.ext.Provider;
 
 import static javax.ws.rs.core.Response.status;
 
+/**
+ * Used to throw a proper FileNotFoundException
+ *
+ */
 @Provider
 public class FileNotFoundExceptionMapper implements ExceptionMapper<FileNotFoundException> {
     /***

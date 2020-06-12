@@ -13,6 +13,18 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * A simple JAX-RS resource to filter columns from a Parquet file. Examples:
+ *
+ * Pre-Usage:
+ * Apache Drill server must be running
+ *
+ * Filter a file:
+ * curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/nation.parquet", "columns" : ["N_NATIONKEY", "N_NAME"], "tableName" : {tableName}}' http://localhost:8080/filter
+ *
+ * File location:
+ * Target Parquet file can be found in /tmp/{tableName}
+ */
 @Path("/filter/column")
 @RequestScoped
 public class FilterColResource {

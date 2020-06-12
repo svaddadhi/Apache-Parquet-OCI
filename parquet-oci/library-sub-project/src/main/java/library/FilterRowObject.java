@@ -7,6 +7,9 @@ import library.transformation.ParquetTransform;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/***
+ * Object file for filtering rows
+ */
 public class FilterRowObject {
     /***
      * Filters out certain rows of a Parquet file

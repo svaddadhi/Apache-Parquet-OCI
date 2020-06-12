@@ -6,6 +6,9 @@ import library.transformation.ParquetTransform;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/***
+ * Object file for conversion
+ */
 public class ConvertObject {
 
     /***

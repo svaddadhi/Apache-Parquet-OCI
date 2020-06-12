@@ -6,6 +6,9 @@ import library.p2c.Conv2Csv;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/***
+ * Native transformations on Parquet
+ */
 public class NativeTransform implements ParquetTransform {
 
     @Override

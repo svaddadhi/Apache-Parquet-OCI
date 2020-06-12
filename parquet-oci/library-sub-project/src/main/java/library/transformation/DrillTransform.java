@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.sql.*;
 import java.lang.*;
 
+/***
+ * Drill transformations on Parquet
+ */
 public class DrillTransform implements ParquetTransform {
     String src;
     String dest;

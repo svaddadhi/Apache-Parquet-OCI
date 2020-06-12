@@ -8,7 +8,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-
+/***
+ * Helidon application that adds all resource files
+ */
 @ApplicationScoped
 @ApplicationPath("/")
 public class HelidonApplication extends Application {
