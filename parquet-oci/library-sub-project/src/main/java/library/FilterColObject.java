@@ -24,4 +24,8 @@ public class FilterColObject {
         ParquetTransform object = new DrillTransform(src, propertyObj.getPropValue("host"), propertyObj.getPropValue("clusterId"));
         object.filterByColumns(tableName,columns, columns.length, src);
     }
+
+    public static void main(String [] args) throws SQLException, IOException, ClassNotFoundException {
+        FilterColObject obj = new FilterColObject("/home/phvle/nation.parquet", new String[] {"N_NATIONKEY, N_NAME"}, "phuTable");
+    }
 }
