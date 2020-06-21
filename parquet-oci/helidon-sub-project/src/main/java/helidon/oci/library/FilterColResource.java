@@ -20,7 +20,7 @@ import java.sql.SQLException;
  * Apache Drill server must be running
  *
  * Filter a file:
- * curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/nation.parquet", "columns" : ["N_NATIONKEY", "N_NAME"], "tableName" : {tableName}}' http://localhost:8080/filter/column
+ * curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/nation.parquet", "columns" : ["N_NATIONKEY", "N_NAME"], "tableName" : "phuTable"}' http://localhost:8080/filter/column
  *
  * File location:
  * Target Parquet file can be found in /tmp/{tableName}

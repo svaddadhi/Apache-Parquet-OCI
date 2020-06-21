@@ -22,7 +22,7 @@ import java.sql.SQLException;
  * Table must already be created
  *
  * Filter a file:
- * curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/nation.parquet", "columns" : ["N_NATIONKEY", "N_NAME"], "tableName" : {tableName}}' http://localhost:8080/filter/row
+ * curl -X PUT -H "Content-Type: application/json" -d '{"filePath" : "/home/phvle/nation.parquet", "columns" : ["N_NATIONKEY", "N_NAME"], "tableName" : "phuTable", "vals" : [0, "Europe"], "tar" : "/home/phvle/target.csv"}' http://localhost:8080/filter/row
  *
  * File location:
  * Target Parquet file can be found in /tmp/{tableName}
