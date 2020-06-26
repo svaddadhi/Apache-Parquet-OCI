@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/***
+ * This class should is not involved in the final product delivery.
+ */
+
 public class SQLSupport {
 
     public static boolean connValidator(Connection c) {

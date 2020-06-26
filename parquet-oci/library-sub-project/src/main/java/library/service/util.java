@@ -6,17 +6,35 @@ import java.io.IOException;
 
 public class util {
 
-    public static void segFault (String err) {
-        System.out.println("Segmentation Fault: " + err);
-        System.exit(255);
+    /***
+     * Segmentation Fault
+     * @param err   char *  Error Code
+     * @throws      SegFault
+     * @return      void
+     */
+    public static void segFault throws SegFault (String err) {
+        throw new SegFault();
     }
 
-    public static void abort (String err) {
-        System.out.println ("Abort: " + err);
-        System.exit(254);
+    /***
+     * Abort
+     * @param err   char *  Error message
+     * @throws      Abort
+     * @return      void
+     */
+    public static void abort throws Abort (String err) {
+        throw new Abort(err);
     }
 
-    public static void writeFile (String dir, String fname, String cont) {
+    /***
+     * Attempts to write to destinated file. If not exist, create the directory or file, or both.
+     * @param dir   char *  Directory to write to
+     * @param fname char *  File name to file to
+     * @param cont  char *  content to write to
+     * @throws      Abort
+     * @return      void
+     */
+    public static void writeFile throws Abort (String dir, String fname, String cont) {
         try {
             mkdir(dir);
             if (dir.charAt(dir.length() - 1) != '/') dir = dir + "/";
@@ -30,6 +48,11 @@ public class util {
         }
     }
 
+    /***
+     * Attempts to make new directory
+     * @param uri   char *  directory to make
+     * @return      void
+     */
     public static void mkdir (String uri) {
         File f = new File (uri);
         if (! f.exists()) f.mkdir();

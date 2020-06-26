@@ -63,13 +63,38 @@ public class Drill {
         return this;
     }
 
+    /***
+     * Obtain the Statement object from the JDBC connection
+     *
+     * @return  Drill
+     * @throws SQLException
+     */
     public Drill extExecutor() throws SQLException {
         this.st = this.conn == null ? null : this.conn.createStatement();
         return this;
     }
 
+    /***
+     * Perform conditional conversion
+     *
+     * @param name      char *      Name of the source CSV
+     * @param title     char **     Title of colums to be converted
+     * @param colNum    int *       Column number of each selected column
+     * @param len       int         Length of the selected list
+     * @param au        AddUtil     Address utility, for unified address management
+     * @return          Drill
+     * @throws SQLException
+     * @throws IOException
+     */
     public Drill convert(String name, String title[], int colNum[], int len, AddUtil au) throws SQLException, IOException {
-        CSVRP csv = new CSVRP("/home/tongxuan/FL_insurance_sample.csv").open().standardize("/home/tongxuan/FL_insurance_sample_std.csv");
+
+        // TODO Change these two param into authorized resources
+        // At here, the CSV file will be first standardized.
+        // ori is the original file, and tarSTD is the standardized file path to write to.
+        private final String oriCSV = "";
+        private final String tarSTD_CSV = "";
+
+        CSVRP csv = new CSVRP(oriCSV).open().standardize(tarSTD_CSV);
         String sql = String.format("create table dfs.tmp.`%s` as select ", name);
         for (int i = 0; i < len; i++)
             sql += String.format("%s columns[%d] as `%s` ", i == 0 ? "" : ",", colNum[i], title[i]);
@@ -79,6 +104,17 @@ public class Drill {
         return this;
     }
 
+    /***
+     * Perform unconditional conversion from CSV to Parquet
+     * Will take advantage of conditional conversion
+     * Get ready for the conversion
+     *
+     * @param name      char *      Name of source CSV
+     * @param au        AddUtil     Address utility
+     * @return
+     * @throws SQLException
+     * @throws IOException
+     */
     public Drill convert(String name, AddUtil au) throws SQLException, IOException {
         String title[] = new CSVRP(au.getSvc()).open().readNext();
         int colNum[] = new int[title.length];
@@ -104,14 +140,37 @@ public class Drill {
         return this;
     }
 
+    /***
+     * Helper function. Perform SQL command
+     *
+     * @param sql       char *      SQL command
+     * @return          ResultSet
+     * @throws SQLException
+     */
     public ResultSet exe(String sql) throws SQLException {
         return this.st.executeQuery(sql);
     }
 
+    /***
+     * Helper Function. Read from table
+     *
+     * @param table     char *      Table to read
+     * @return          ResultSet
+     * @throws SQLException
+     */
     public ResultSet read(String table) throws SQLException {
         return this.exe(String.format("select * from dfs.tmp.`%s`", table));
     }
 
+    /***
+     * Unconditional read from Drill
+     *
+     * @param src       char *      Source database table
+     * @param tar       char *      Target file to write to
+     * @return          Drill
+     * @throws SQLException
+     * @throws IOException
+     */
     public Drill pull(String src, String tar) throws SQLException, IOException {
         CSVWriter writer = new CSVWriter(new FileWriter(new File(tar)));
         List<String[]> csvCont = new ArrayList<>();
@@ -127,17 +186,17 @@ public class Drill {
         return this;
     }
 
-    /**
+    /***
      * This function will perform filter on parquet database, and generate a csv file for user
      * which meets their expectation. Considering the executive machine does not have to be the
      * database server, we do not provide the automatic write back into the parquet database as
      * a brand new table.
      *
-     * @param   table   The parquet target which we want to perform the filter
-     * @param   colName The name of columns user want to apply the filter rule
-     * @param   val     Expected value for each specified column
-     * @param   tar     Target file location for the outputing csv file.
-     * @ret     Drill   This function returns the object itself.
+     * @param   table   char *      The parquet target which we want to perform the filter
+     * @param   colName char **     The name of columns user want to apply the filter rule
+     * @param   val     char **     Expected value for each specified column
+     * @param   tar     char *      Target file location for the outputing csv file.
+     * @return  Drill   This function returns the object itself.
      */
     public Drill pull(String table, String colName[], String val[], String tar) throws SQLException, IOException, InterruptedException {
         if (colName.length != val.length) abort("Row filter property not match");

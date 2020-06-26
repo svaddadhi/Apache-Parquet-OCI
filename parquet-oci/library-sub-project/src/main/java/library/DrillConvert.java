@@ -48,12 +48,29 @@ import java.math.*;
  */
 public class DrillConvert {
 
+    /*
+    #ifndef DRILL_CONV_H_PARA
+    #define DRILL_CONV_H_PARA
+    #define DRILL_SERVER drill.example.com
+    #define DRILL_TYPE drillbit
+    #endif
+     */
+
+    // TODO Private sources involved. Replace with authorized source URI
+    final private String drillServer = "drill.example.com";
+    final private String DrillType = "drillbit";
+    final private String unifiedSrouceAddress = "/home/drill/stdcsv100.csv";
+    final private String localFileSource = System.getProperty("user.home") + File.separator + "stdcsv100.csv";
+    final private String uriToWrite = System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv";
+    final private STring uriToWriteRF = System.getProperty("user.home") + File.separator + "stdcsv100_rf0.csv";
+
+    // See usage of AddUtil in library.service.AddUtil
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, InterruptedException {
-        Drill d = new Drill("drill.yg-home.site", "drillbit").connect().extExecutor()
-                .convert("testTable_std_col", new String[]{"Region", "Total Cost", "Total Profit"}, new int[] {0, 12, 13}, 3, new AddUtil("/home/drill/stdcsv100.csv"))
-                .convert("testTable", new AddUtil(System.getProperty("user.home") + File.separator + "stdcsv100.csv", "/home/drill/stdcsv100.csv"))
-                //.pull("testTable", System.getProperty("user.home") + File.separator + "stdcsv100_ret.csv")
-                //.pull("testTable", new String[]{"Region", "Order Priority"}, new String[]{"Europe", "L"}, System.getProperty("user.home") + File.separator + "stdcsv100_rf0.csv")
+        Drill d = new Drill(drillServer, DrillType).connect().extExecutor()
+                .convert("testTable_std_col", new String[]{"Region", "Total Cost", "Total Profit"}, new int[] {0, 12, 13}, 3, new AddUtil(unifiedSrouceAddress))
+                .convert("testTable", new AddUtil(localFileSource, unifiedSrouceAddress))
+                .pull("testTable", uriToWrite)
+                .pull("testTable", new String[]{"Region", "Order Priority"}, new String[]{"Europe", "L"}, uriToWriteRF)
                 .close();
     }
 }

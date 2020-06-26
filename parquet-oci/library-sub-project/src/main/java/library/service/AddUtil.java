@@ -2,6 +2,10 @@ package library.service;
 
 public class AddUtil {
 
+    /**
+     * Unified Address manager
+     */
+
     private String exeAdd, dbsAdd;
 
     public AddUtil (String add) {
